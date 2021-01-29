@@ -46,6 +46,12 @@ enum custom_keycodes {
   E_CIRC,
   A_GRV,
   U_GRV,
+
+  // Combo keys
+  CRN_L,
+  CRN_R,
+  RST_1,
+  RST_2,
 };
 
 // --------------- }}}
@@ -72,14 +78,21 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed, uint8_t mod
   return false;                         // Don't continue with the key handling.
 }
 
+void unmod(uint16_t letter, uint8_t modifiers) {
+  unregister_mods(MOD_MASK_SHIFT);
+  tap_code16(letter);
+  register_mods(modifiers);
+}
+
 // -------------------------- }}}
 
 // ---- Custom keys ---- {{{
 
+// Simple ones {{{
 // Modtaps
 #define ESC_FN MT(MOD_HYPR, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
-#define SFT_UP RSFT_T(KC_UP)
+#define OSM_SFT OSM(MOD_LSFT)
 
 // Home row mods
 #define SFT_A MT(MOD_LSFT, KC_A)
@@ -92,13 +105,14 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed, uint8_t mod
 #define CMD_J MT(MOD_RGUI, KC_J)
 
 // Layer keys
-#define BASE  DF(_BASE) 
-#define RAISE MO(_RAISE) 
-#define LOWER MO(_LOWER) 
-#define NAV   MO(_NAV) 
-#define NUM   MO(_NUM) 
+#define BASE  DF(_BASE)
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
+#define NAV   MO(_NAV)
+#define NUM   MO(_NUM)
 #define MEDIA LT(_MEDIA, KC_ENT)
-#define FUNCT LT(_FUNCT, KC_LEFT)
+#define FUNCT MO(_FUNCT)
+// }}}
 
 // Accented letters {{{
 #define C_CED   RALT(KC_C)
@@ -139,69 +153,187 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Combos {{{
 
-enum combo_events {
+enum combo_events {/*{{{*/
+  // Accents
   ER_E_ACUTE,
   EW_E_GRAVE,
   WER_E_CIRC,
-  OU_GRV,
   UIO_I_CIRC,
   IOP_O_CIRC,
+  YUI_U_CIRC,
+  ASD_A_CIRC,
   AS_A_GRV,
-  I_CAPS
-};
+  XC_C_CED,
+  // Common words
+    // French
+    OU_GRV,
+    BCP_BEAUCOUP,
+    MWER_MEME,
+    LTA_LAETITIA,
+    CA_CA,
+    LA_LA,
+    PTE_PEUT_ETRE,
+    UJ_UN,
+    C_CEST,
+    // English
+    I_CAPS,
+    IM_IM,
+    DN_DONT,
+  // Combo keys
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  JL_ALT_BCSP,
+  A_SC_OSM_SFT,
+  CMB_RESET,
+};/*}}}*/
 
+// consts {{{
+// Accents
 const uint16_t PROGMEM acute_e_combo[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM grave_e_combo[] = {KC_E, KC_W, COMBO_END};
 const uint16_t PROGMEM circ_e_combo[]  = {KC_E, KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM ou_grave_combo[] = {KC_O, KC_U, COMBO_END};
 const uint16_t PROGMEM i_circ_combo[] = {KC_U, KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM o_circ_combo[] = {KC_I, KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM a_grave_combo[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM capitalised_i[] = {KC_A, KC_I, COMBO_END};
+const uint16_t PROGMEM u_circ_combo[] = {KC_Y, KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM a_circ_combo[] = {SFT_A, CTL_S, ALT_D, COMBO_END};
+const uint16_t PROGMEM a_grave_combo[] = {SFT_A, CTL_S, COMBO_END};
+const uint16_t PROGMEM c_ced_combo[] = {KC_X, KC_C, COMBO_END};
+// Common words
+  // French
+const uint16_t PROGMEM ou_grave_combo[] = {KC_O, KC_U, COMBO_END};
+const uint16_t PROGMEM beaucoup_combo[] = {KC_B, KC_C, KC_P, COMBO_END};
+const uint16_t PROGMEM meme_combo[] = {KC_M, KC_W, KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM laetitia_combo[] = {CTL_L, KC_T, SFT_A, COMBO_END};
+const uint16_t PROGMEM ca_combo[] = {KC_C, SFT_A, COMBO_END};
+const uint16_t PROGMEM la_combo[] = {CTL_L, SFT_A, COMBO_END};
+const uint16_t PROGMEM peut_etre_combo[] = {KC_P, KC_T, KC_E, COMBO_END};
+const uint16_t PROGMEM un_combo[] = {KC_U, CMD_J, COMBO_END};
+const uint16_t PROGMEM cest_combo[] = {KC_C, UD_APO, COMBO_END};
+  // English
+const uint16_t PROGMEM cap_i_combo[] = {SFT_A, KC_I, COMBO_END};
+const uint16_t PROGMEM i_m_combo[] = {KC_I, KC_M, COMBO_END};
+const uint16_t PROGMEM dont_combo[] = {ALT_D, KC_N, COMBO_END};
+// Combo keys
+const uint16_t PROGMEM right_arrow[] = {CRN_L, CRN_R, COMBO_END};
+const uint16_t PROGMEM left_arrow[] = {FUNCT, CRN_L, COMBO_END};
+const uint16_t PROGMEM alt_bcsp_combo[] = {CMD_J, CTL_L, COMBO_END};
+const uint16_t PROGMEM a_sc_oneshotshift_combo[] = {SFT_A, SFT_SC, COMBO_END};
+const uint16_t PROGMEM reset_combo[] = {RST_1, RST_2, COMBO_END};
+/*}}}*/
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {/*{{{*/
+  // Accents
   [ER_E_ACUTE] = COMBO_ACTION(acute_e_combo),
   [EW_E_GRAVE] = COMBO_ACTION(grave_e_combo),
   [WER_E_CIRC] = COMBO_ACTION(circ_e_combo),
-  [OU_GRV] = COMBO_ACTION(ou_grave_combo),
   [UIO_I_CIRC] = COMBO_ACTION(i_circ_combo),
   [IOP_O_CIRC] = COMBO_ACTION(o_circ_combo),
+  [YUI_U_CIRC] = COMBO_ACTION(u_circ_combo),
+  [ASD_A_CIRC] = COMBO_ACTION(a_circ_combo),
   [AS_A_GRV] = COMBO_ACTION(a_grave_combo),
-  [I_CAPS] = COMBO_ACTION(capitalised_i)
-};
+  [XC_C_CED] = COMBO_ACTION(c_ced_combo),
 
-void process_combo_event(uint16_t combo_index, bool pressed) {
+  // Common words
+    // French
+    [OU_GRV] = COMBO_ACTION(ou_grave_combo),
+    [BCP_BEAUCOUP] = COMBO_ACTION(beaucoup_combo),
+    [MWER_MEME] = COMBO_ACTION(meme_combo),
+    [LTA_LAETITIA] = COMBO_ACTION(laetitia_combo),
+    [CA_CA] = COMBO_ACTION(ca_combo),
+    [LA_LA] = COMBO_ACTION(la_combo),
+    [PTE_PEUT_ETRE] = COMBO_ACTION(peut_etre_combo),
+    [UJ_UN] = COMBO_ACTION(un_combo),
+    [C_CEST] = COMBO_ACTION(cest_combo),
+    // English
+    [I_CAPS] = COMBO(cap_i_combo, S(KC_I)),
+    [IM_IM] = COMBO_ACTION(i_m_combo),
+    [DN_DONT] = COMBO_ACTION(dont_combo),
+
+  // Combo keys
+  [LEFT_ARROW] = COMBO(left_arrow, KC_LEFT),
+  [RIGHT_ARROW] = COMBO(right_arrow, KC_RGHT),
+  [JL_ALT_BCSP] = COMBO(alt_bcsp_combo, A(KC_BSPC)),
+  [A_SC_OSM_SFT] = COMBO(a_sc_oneshotshift_combo, OSM(MOD_LSFT)),
+  [CMB_RESET] = COMBO(reset_combo, RESET),
+};/*}}}*/
+
+void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
   uint8_t mod_state = get_mods();
   switch(combo_index) {
-    case ER_E_ACUTE:
-      accented_letter(KC_QUOT, KC_E, pressed, mod_state);
-      break;
-    case EW_E_GRAVE:
-      accented_letter(KC_GRV, KC_E, pressed, mod_state);
-      break;
-    case WER_E_CIRC:
-      accented_letter(S(KC_6), KC_E, pressed, mod_state);
-      break;
-    case OU_GRV:
+
+    // Accents{{{
+    case ER_E_ACUTE: accented_letter(KC_QUOT, KC_E, pressed, mod_state); break;
+    case EW_E_GRAVE: accented_letter(KC_GRV, KC_E, pressed, mod_state); break;
+    case WER_E_CIRC: accented_letter(S(KC_6), KC_E, pressed, mod_state); break;
+    case UIO_I_CIRC: accented_letter(S(KC_6), KC_I, pressed, mod_state); break;
+    case IOP_O_CIRC: accented_letter(S(KC_6), KC_O, pressed, mod_state); break;
+    case YUI_U_CIRC: accented_letter(S(KC_6), KC_U, pressed, mod_state); break;
+    case ASD_A_CIRC: accented_letter(S(KC_6), KC_A, pressed, mod_state); break;
+    case AS_A_GRV: accented_letter(KC_GRV, KC_A, pressed, mod_state); break;
+    case XC_C_CED: accented_letter(KC_QUOT, KC_C, pressed, mod_state); break;
+    /*}}}*/
+
+    // Common words{{{
+    // French
+    case OU_GRV: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed, mod_state); break;
+    case BCP_BEAUCOUP: if (pressed) { SEND_STRING("beaucoup"); } break;
+    case MWER_MEME: if (pressed) { SEND_STRING("m^eme"); } break;
+    case LTA_LAETITIA: if (pressed) {
+                         unmod(S(KC_L), mod_state);
+                         SEND_STRING("a");
+                         accented_letter(S(KC_QUOT), KC_E, pressed, mod_state);
+                         SEND_STRING("titia");
+                       } break;
+    case LA_LA: if (pressed) { tap_code(KC_L); } accented_letter(KC_GRV, KC_A, pressed, mod_state); break;
+    case CA_CA: if (pressed) { accented_letter(KC_QUOT, KC_C, pressed, mod_state); tap_code(KC_A); } break;
+    case PTE_PEUT_ETRE: if (pressed) {
+                          SEND_STRING("peut");
+                          unmod(KC_MINUS, mod_state);
+                          unmod(S(KC_6), mod_state);
+                          SEND_STRING("etre");
+                        } break;
+    case UJ_UN: if (pressed) { SEND_STRING("un"); } break;
+    case C_CEST:
       if (pressed) {
-        tap_code(KC_O);
-        accented_letter(KC_GRV, KC_U, pressed, mod_state);
+        tap_code(KC_C);
+        unmod(KC_QUOT, mod_state);
+        SEND_STRING(" est");
       }
       break;
-    case UIO_I_CIRC:
-      accented_letter(S(KC_6), KC_I, pressed, mod_state);
-      break;
-    case IOP_O_CIRC:
-      accented_letter(S(KC_6), KC_O, pressed, mod_state);
-      break;
-    case AS_A_GRV:
-      accented_letter(KC_GRV, KC_A, pressed, mod_state);
-      break;
-    case I_CAPS:
-      tap_code16(S(KC_I));
-      break;
+    // English
+    case IM_IM: if (pressed) { unmod(S(KC_I), mod_state); unmod(KC_QUOT, mod_state); tap_code(KC_M); } break;
+    case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT, mod_state); tap_code(KC_T); } break;
+    /*}}}*/
+
+    // Combo keys{{{
+
+    /*}}}*/
   }
+}/*}}}*/
+
+// Combo terms {{{
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+  if (KEYCODE_IS_MOD(combo->keycode)) { return COMBO_MOD_TERM; }
+  switch (index) {
+    case WER_E_CIRC: return 100;
+    case UIO_I_CIRC: return 100;
+    case IOP_O_CIRC: return 100;
+    case YUI_U_CIRC: return 100;
+    case ASD_A_CIRC: return 100;
+    case AS_A_GRV: return 50;
+    case XC_C_CED: return 100;
+    case BCP_BEAUCOUP: return 100;
+    case MWER_MEME: return 100;
+    case LTA_LAETITIA: return 100;
+    case CA_CA: return 50;
+    case PTE_PEUT_ETRE: return 50;
+    case C_CEST: return 50;
+    case I_CAPS: return 50;
+    case A_SC_OSM_SFT: return 50;
+  }
+  return COMBO_TERM;
 }
+// }}}
 
 // }}}
 
@@ -230,8 +362,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_ortho_4x12( \
   TAB_MEH, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    MEDIA,
   ESC_FN,  SFT_A,   CTL_S,   ALT_D,   CMD_F,   KC_G,    KC_H,    CMD_J,   ALT_K,   CTL_L,   SFT_SC,  UD_APO,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_UP,
-  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   KC_DOWN, KC_RGHT
+  OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   CRN_R
 ),
 // -------------------- }}}
 
@@ -240,7 +372,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, A_GRV,   _______, E_ACUTE, _______, _______, _______, _______, DED_CIR, KC_UNDS, KC_PLUS, _______,
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, UD_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
   _______, UD_GRV,  _______, C_CED,   _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // --------------- }}}
 
@@ -276,13 +408,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRIU, KC_VOLU, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRID, KC_VOLD, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MFFD, KC_MPLY, KC_MRWD \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD \
 ),
 // --------------- }}}
 
 // ---- FUNCT ---- {{{
 [_FUNCT] = LAYOUT_ortho_4x12(
-  KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, RST_1,   RST_2,
   KC_F7,   KC_F8,   KC_F9,   _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT, _______,
   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F1,   KC_F2,   KC_F3,   _______, _______, _______, _______, _______, _______, _______, _______, _______
