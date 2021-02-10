@@ -182,6 +182,7 @@ enum combo_events {/*{{{*/
     OI_ON,
     C_CEST,
     CM_COMME,
+    ETR_ETRE,
     // English
     I_CAPS,
     IM_IM,
@@ -221,6 +222,7 @@ const uint16_t PROGMEM un_combo[] = {KC_U, CMD_J, COMBO_END};
 const uint16_t PROGMEM on_combo[] = {KC_O, KC_I, COMBO_END};
 const uint16_t PROGMEM cest_combo[] = {KC_C, UD_APO, COMBO_END};
 const uint16_t PROGMEM comme_combo[] = {KC_C, KC_M, COMBO_END};
+const uint16_t PROGMEM etre_combo[] = {KC_E, KC_R, KC_T, COMBO_END};
   // English
 const uint16_t PROGMEM cap_i_combo[] = {SFT_A, KC_I, COMBO_END};
 const uint16_t PROGMEM i_m_combo[] = {KC_I, KC_M, COMBO_END};
@@ -261,6 +263,7 @@ combo_t key_combos[] = {/*{{{*/
     [OI_ON] = COMBO_ACTION(on_combo),
     [C_CEST] = COMBO_ACTION(cest_combo),
     [CM_COMME] = COMBO_ACTION(comme_combo),
+    [ETR_ETRE] = COMBO_ACTION(etre_combo),
     // English
     [I_CAPS] = COMBO(cap_i_combo, S(KC_I)),
     [IM_IM] = COMBO_ACTION(i_m_combo),
@@ -296,7 +299,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
     // French
     case OU_GRV: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed); break;
     case BCP_BEAUCOUP: if (pressed) { SEND_STRING("beaucoup"); } break;
-    case MWER_MEME: if (pressed) { SEND_STRING("m^eme"); } break;
+    case MWER_MEME: if (pressed) { tap_code(KC_M); accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("me"); } break;
     case LTA_LAETITIA: if (pressed) {
                          unmod(S(KC_L));
                          SEND_STRING("a");
@@ -321,6 +324,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
       }
       break;
     case CM_COMME: if (pressed) { SEND_STRING("comme"); } break;
+    case ETR_ETRE: if (pressed) { accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("tre"); } break;
     // English
     case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
