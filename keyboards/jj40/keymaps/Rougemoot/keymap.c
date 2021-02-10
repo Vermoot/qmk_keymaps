@@ -65,22 +65,24 @@ bool undead(uint16_t  character, bool pressed) {
   return false;
 }
 
-bool accented_letter(uint16_t accent, uint16_t letter, bool pressed, uint8_t modifiers) {
+void unmod(uint16_t letter) {
+  uint8_t mod_state = get_mods();
+  uint8_t osm_state = get_oneshot_mods();
+  unregister_mods(MOD_MASK_SHIFT);
+  del_oneshot_mods(MOD_MASK_SHIFT);
+  tap_code16(letter);
+  register_mods(mod_state);
+  add_oneshot_mods(osm_state);
+}
+
+bool accented_letter(uint16_t accent, uint16_t letter, bool pressed) {
   if (pressed) {          // On press:
-    unregister_mods(MOD_MASK_SHIFT);    // Unpress shift if needed
-    tap_code16(accent);                 // Tap the (dead) accent character
-    register_mods(modifiers);           // Restore initial mod_state (so re-press shift if needed)
+    unmod(accent);
     register_code(letter);              // Press letter.
   } else {                              // On release: (this is for repeats on hold down)
     unregister_code(letter);            // Release letter
   }                                     // If shift is pressed it'll be released by the user
   return false;                         // Don't continue with the key handling.
-}
-
-void unmod(uint16_t letter, uint8_t modifiers) {
-  unregister_mods(MOD_MASK_SHIFT);
-  tap_code16(letter);
-  register_mods(modifiers);
 }
 
 // -------------------------- }}}
@@ -123,7 +125,6 @@ void unmod(uint16_t letter, uint8_t modifiers) {
 #define DED_CIR RALT(KC_I)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t mod_state = get_mods();
   switch (keycode) {
 
     // Undead characters
@@ -138,15 +139,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Accented letters
     case E_ACUTE:
-      return accented_letter(KC_QUOT, KC_E, record->event.pressed, mod_state);
+      return accented_letter(KC_QUOT, KC_E, record->event.pressed);
     case E_GRV:
-      return accented_letter(KC_GRV, KC_E, record->event.pressed, mod_state);
+      return accented_letter(KC_GRV, KC_E, record->event.pressed);
     case E_CIRC:
-      return accented_letter(S(KC_6), KC_E, record->event.pressed, mod_state);
+      return accented_letter(S(KC_6), KC_E, record->event.pressed);
     case A_GRV:
-      return accented_letter(KC_GRV, KC_A, record->event.pressed, mod_state);
+      return accented_letter(KC_GRV, KC_A, record->event.pressed);
     case U_GRV:
-      return accented_letter(KC_GRV, KC_U, record->event.pressed, mod_state);
+      return accented_letter(KC_GRV, KC_U, record->event.pressed);
     default:
       return true;
 
@@ -277,38 +278,37 @@ combo_t key_combos[] = {/*{{{*/
 };/*}}}*/
 
 void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
-  uint8_t mod_state = get_mods();
   switch(combo_index) {
 
     // Accents{{{
-    case ER_E_ACUTE: accented_letter(KC_QUOT, KC_E, pressed, mod_state); break;
-    case EW_E_GRAVE: accented_letter(KC_GRV, KC_E, pressed, mod_state); break;
-    case WER_E_CIRC: accented_letter(S(KC_6), KC_E, pressed, mod_state); break;
-    case UIO_I_CIRC: accented_letter(S(KC_6), KC_I, pressed, mod_state); break;
-    case IOP_O_CIRC: accented_letter(S(KC_6), KC_O, pressed, mod_state); break;
-    case YUI_U_CIRC: accented_letter(S(KC_6), KC_U, pressed, mod_state); break;
-    case ASD_A_CIRC: accented_letter(S(KC_6), KC_A, pressed, mod_state); break;
-    case AS_A_GRV: accented_letter(KC_GRV, KC_A, pressed, mod_state); break;
-    case XC_C_CED: accented_letter(KC_QUOT, KC_C, pressed, mod_state); break;
+    case ER_E_ACUTE: accented_letter(KC_QUOT, KC_E, pressed); break;
+    case EW_E_GRAVE: accented_letter(KC_GRV, KC_E, pressed); break;
+    case WER_E_CIRC: accented_letter(S(KC_6), KC_E, pressed); break;
+    case UIO_I_CIRC: accented_letter(S(KC_6), KC_I, pressed); break;
+    case IOP_O_CIRC: accented_letter(S(KC_6), KC_O, pressed); break;
+    case YUI_U_CIRC: accented_letter(S(KC_6), KC_U, pressed); break;
+    case ASD_A_CIRC: accented_letter(S(KC_6), KC_A, pressed); break;
+    case AS_A_GRV: accented_letter(KC_GRV, KC_A, pressed); break;
+    case XC_C_CED: accented_letter(KC_QUOT, KC_C, pressed); break;
     /*}}}*/
 
     // Common words{{{
     // French
-    case OU_GRV: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed, mod_state); break;
+    case OU_GRV: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed); break;
     case BCP_BEAUCOUP: if (pressed) { SEND_STRING("beaucoup"); } break;
     case MWER_MEME: if (pressed) { SEND_STRING("m^eme"); } break;
     case LTA_LAETITIA: if (pressed) {
-                         unmod(S(KC_L), mod_state);
+                         unmod(S(KC_L));
                          SEND_STRING("a");
-                         accented_letter(S(KC_QUOT), KC_E, pressed, mod_state);
+                         accented_letter(S(KC_QUOT), KC_E, pressed);
                          SEND_STRING("titia");
                        } break;
-    case LA_LA: if (pressed) { tap_code(KC_L); } accented_letter(KC_GRV, KC_A, pressed, mod_state); break;
-    case CA_CA: if (pressed) { accented_letter(KC_QUOT, KC_C, pressed, mod_state); tap_code(KC_A); } break;
+    case LA_LA: if (pressed) { tap_code(KC_L); } accented_letter(KC_GRV, KC_A, pressed); break;
+    case CA_CA: if (pressed) { accented_letter(KC_QUOT, KC_C, pressed); tap_code(KC_A); } break;
     case PTE_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
-                          unmod(KC_MINUS, mod_state);
-                          unmod(S(KC_6), mod_state);
+                          unmod(KC_MINUS);
+                          unmod(S(KC_6));
                           SEND_STRING("etre");
                         } break;
     case UJ_UN: if (pressed) { SEND_STRING("un"); } break;
@@ -316,14 +316,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
     case C_CEST:
       if (pressed) {
         tap_code(KC_C);
-        unmod(KC_QUOT, mod_state);
+        unmod(KC_QUOT);
         SEND_STRING(" est");
       }
       break;
     case CM_COMME: if (pressed) { SEND_STRING("comme"); } break;
     // English
-    case IM_IM: if (pressed) { unmod(S(KC_I), mod_state); unmod(KC_QUOT, mod_state); tap_code(KC_M); } break;
-    case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT, mod_state); tap_code(KC_T); } break;
+    case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
+    case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
     /*}}}*/
 
     // Combo keys{{{
