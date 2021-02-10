@@ -7,8 +7,8 @@
 #define TAPPING_TERM 200
 
 // Combos
-#define COMBO_COUNT 26
-#define COMBO_TERM 20
+#define COMBO_COUNT 31
+#define COMBO_TERM 30
 #define COMBO_TERM_PER_COMBO
 
 // One shot mods

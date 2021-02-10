@@ -49,7 +49,6 @@ enum custom_keycodes {
 
   // Combo keys
   CRN_L,
-  CRN_R,
   RST_1,
   RST_2,
 };
@@ -112,6 +111,11 @@ void unmod(uint16_t letter, uint8_t modifiers) {
 #define NUM   MO(_NUM)
 #define MEDIA LT(_MEDIA, KC_ENT)
 #define FUNCT MO(_FUNCT)
+#define SELECT MO(_SELECT)
+
+// Misc
+#define KC_EURO S(A(KC_2))
+
 // }}}
 
 // Accented letters {{{
@@ -174,7 +178,9 @@ enum combo_events {/*{{{*/
     LA_LA,
     PTE_PEUT_ETRE,
     UJ_UN,
+    OI_ON,
     C_CEST,
+    CM_COMME,
     // English
     I_CAPS,
     IM_IM,
@@ -182,6 +188,9 @@ enum combo_events {/*{{{*/
   // Combo keys
   LEFT_ARROW,
   RIGHT_ARROW,
+  UP_ARROW,
+  DOWN_ARROW,
+  CORNER_SPACE,
   JL_ALT_BCSP,
   A_SC_OSM_SFT,
   CMB_RESET,
@@ -208,14 +217,19 @@ const uint16_t PROGMEM ca_combo[] = {KC_C, SFT_A, COMBO_END};
 const uint16_t PROGMEM la_combo[] = {CTL_L, SFT_A, COMBO_END};
 const uint16_t PROGMEM peut_etre_combo[] = {KC_P, KC_T, KC_E, COMBO_END};
 const uint16_t PROGMEM un_combo[] = {KC_U, CMD_J, COMBO_END};
+const uint16_t PROGMEM on_combo[] = {KC_O, KC_I, COMBO_END};
 const uint16_t PROGMEM cest_combo[] = {KC_C, UD_APO, COMBO_END};
+const uint16_t PROGMEM comme_combo[] = {KC_C, KC_M, COMBO_END};
   // English
 const uint16_t PROGMEM cap_i_combo[] = {SFT_A, KC_I, COMBO_END};
 const uint16_t PROGMEM i_m_combo[] = {KC_I, KC_M, COMBO_END};
 const uint16_t PROGMEM dont_combo[] = {ALT_D, KC_N, COMBO_END};
 // Combo keys
-const uint16_t PROGMEM right_arrow[] = {CRN_L, CRN_R, COMBO_END};
-const uint16_t PROGMEM left_arrow[] = {FUNCT, CRN_L, COMBO_END};
+const uint16_t PROGMEM right_arrow[] = {CRN_L, SELECT, COMBO_END};
+const uint16_t PROGMEM left_arrow[] = {KC_BSPC, FUNCT, COMBO_END};
+const uint16_t PROGMEM up_arrow[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM down_arrow[] = {FUNCT, CRN_L, COMBO_END};
+const uint16_t PROGMEM space_combo[] = {FUNCT, CRN_L, SELECT, COMBO_END};
 const uint16_t PROGMEM alt_bcsp_combo[] = {CMD_J, CTL_L, COMBO_END};
 const uint16_t PROGMEM a_sc_oneshotshift_combo[] = {SFT_A, SFT_SC, COMBO_END};
 const uint16_t PROGMEM reset_combo[] = {RST_1, RST_2, COMBO_END};
@@ -243,7 +257,9 @@ combo_t key_combos[] = {/*{{{*/
     [LA_LA] = COMBO_ACTION(la_combo),
     [PTE_PEUT_ETRE] = COMBO_ACTION(peut_etre_combo),
     [UJ_UN] = COMBO_ACTION(un_combo),
+    [OI_ON] = COMBO_ACTION(on_combo),
     [C_CEST] = COMBO_ACTION(cest_combo),
+    [CM_COMME] = COMBO_ACTION(comme_combo),
     // English
     [I_CAPS] = COMBO(cap_i_combo, S(KC_I)),
     [IM_IM] = COMBO_ACTION(i_m_combo),
@@ -252,6 +268,9 @@ combo_t key_combos[] = {/*{{{*/
   // Combo keys
   [LEFT_ARROW] = COMBO(left_arrow, KC_LEFT),
   [RIGHT_ARROW] = COMBO(right_arrow, KC_RGHT),
+  [UP_ARROW] = COMBO(up_arrow, KC_UP),
+  [DOWN_ARROW] = COMBO(down_arrow, KC_DOWN),
+  [CORNER_SPACE] = COMBO(space_combo, KC_SPC),
   [JL_ALT_BCSP] = COMBO(alt_bcsp_combo, A(KC_BSPC)),
   [A_SC_OSM_SFT] = COMBO(a_sc_oneshotshift_combo, OSM(MOD_LSFT)),
   [CMB_RESET] = COMBO(reset_combo, RESET),
@@ -293,6 +312,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
                           SEND_STRING("etre");
                         } break;
     case UJ_UN: if (pressed) { SEND_STRING("un"); } break;
+    case OI_ON: if (pressed) { SEND_STRING("on"); } break;
     case C_CEST:
       if (pressed) {
         tap_code(KC_C);
@@ -300,6 +320,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
         SEND_STRING(" est");
       }
       break;
+    case CM_COMME: if (pressed) { SEND_STRING("comme"); } break;
     // English
     case IM_IM: if (pressed) { unmod(S(KC_I), mod_state); unmod(KC_QUOT, mod_state); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT, mod_state); tap_code(KC_T); } break;
@@ -330,6 +351,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case C_CEST: return 50;
     case I_CAPS: return 50;
     case A_SC_OSM_SFT: return 50;
+    case JL_ALT_BCSP: return 100;
   }
   return COMBO_TERM;
 }
@@ -363,24 +385,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TAB_MEH, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    MEDIA,
   ESC_FN,  SFT_A,   CTL_S,   ALT_D,   CMD_F,   KC_G,    KC_H,    CMD_J,   ALT_K,   CTL_L,   SFT_SC,  UD_APO,
   OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   CRN_R
+  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   SELECT
 ),
 // -------------------- }}}
 
 // ---- RAISE ---- {{{
 [_RAISE] = LAYOUT_ortho_4x12( \
-  _______, A_GRV,   _______, E_ACUTE, _______, _______, _______, _______, DED_CIR, KC_UNDS, KC_PLUS, _______,
+  _______, _______, _______, KC_EURO, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, _______,
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, UD_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-  _______, UD_GRV,  _______, C_CED,   _______, _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______,
+  _______, UD_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // --------------- }}}
 
 // ---- LOWER ---- {{{
 [_LOWER] = LAYOUT_ortho_4x12( \
-  _______, _______, _______, E_GRV,   _______, _______, _______, U_GRV,   E_CIRC,  KC_MINS, KC_EQL,  _______,
-  _______, KC_1,    KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_BSLS,
-  _______, UD_TLD,  _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______,
+  _______, _______, KC_LCBR, KC_LBRC, KC_LPRN, _______, _______, KC_RPRN, KC_RBRC, KC_RCBR, _______, KC_BSLS,
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // --------------- }}}
@@ -414,20 +436,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ---- FUNCT ---- {{{
 [_FUNCT] = LAYOUT_ortho_4x12(
-  KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, RST_1,   RST_2,
-  KC_F7,   KC_F8,   KC_F9,   _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT, _______,
-  KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  KC_F1,   KC_F2,   KC_F3,   _______, _______, _______, _______, _______, _______, _______, _______, _______
+  KC_F1,   KC_F2,   KC_F3,  _______, _______, _______, _______, _______, _______, _______, RST_1,   RST_2,
+  KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT, _______,
+  KC_F7,   KC_F8,   KC_F9,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  KC_F10,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // --------------- }}}
 
 // ---- SELECT ---- {{{
 [_SELECT] = LAYOUT_ortho_4x12(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_STENO),
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_GAMING),
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-)
+),
 // ---------------- }}}
 
 /*
@@ -441,6 +463,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---------------- }}}
 */
 
+// ---- GAMING ---- {{{
+[_GAMING] = LAYOUT_ortho_4x12(
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    MEDIA,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   DF(_BASE)
+),
+// ---------- }}}
 };
 
 // ------------------------------------------- }}}
