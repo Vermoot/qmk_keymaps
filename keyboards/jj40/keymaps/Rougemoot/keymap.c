@@ -365,10 +365,12 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case CA_CA: return 50;
     case PTE_PEUT_ETRE: return 50;
     case C_CEST: return 50;
+    case OI_ON: return 20;
     case I_CAPS: return 50;
     case A_SC_OSM_SFT: return 50;
     case JL_ALT_BCSP: return 100;
-    case CM_COMME: return 50;
+    case CM_COMME: return 100;
+    case ETR_ETRE: return 10;
   }
   return COMBO_TERM;
 }
