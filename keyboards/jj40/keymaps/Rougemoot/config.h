@@ -5,9 +5,10 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
 
 // Combos
-#define COMBO_COUNT 31
+#define COMBO_COUNT 32
 #define COMBO_TERM 30
 #define COMBO_TERM_PER_COMBO
 

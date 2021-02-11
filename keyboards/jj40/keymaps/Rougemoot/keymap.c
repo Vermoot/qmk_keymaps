@@ -118,6 +118,18 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed) {
 // Misc
 #define KC_EURO S(A(KC_2))
 
+// Tapping terms {{{
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_S:
+            return TAPPING_TERM + 100;
+        case CTL_L:
+            return TAPPING_TERM + 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
+// }}}
 // }}}
 
 // Accented letters {{{
@@ -356,6 +368,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case I_CAPS: return 50;
     case A_SC_OSM_SFT: return 50;
     case JL_ALT_BCSP: return 100;
+    case CM_COMME: return 50;
   }
   return COMBO_TERM;
 }
