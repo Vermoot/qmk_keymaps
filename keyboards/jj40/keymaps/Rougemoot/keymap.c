@@ -53,7 +53,15 @@ enum custom_keycodes {
   E_GRV,
   E_CIRC,
   A_GRV,
-  U_GRV,
+  A_CIRC,
+  I_CIRC,
+  O_CIRC,
+  U_CIRC,
+  C_CED,
+
+  // Bigrams
+  BI_ON,
+  BI_UN,
 
   // Combo keys
   CRN_L,
@@ -141,33 +149,28 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // }}}
 
 // Accented letters {{{
-#define C_CED   RALT(KC_C)
-#define DED_CIR RALT(KC_I)
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
     // Undead characters
-    case UD_APO:
-      return undead(KC_QUOT, record->event.pressed);
-    case UD_GRV:
-      return undead(KC_GRV, record->event.pressed);
-    case UD_TLD:
-      return undead(S(KC_GRV), record->event.pressed);
-    case UD_CIRC:
-      return undead(S(KC_6), record->event.pressed);
+    case UD_APO: return undead(KC_QUOT, record->event.pressed);
+    case UD_GRV: return undead(KC_GRV, record->event.pressed);
+    case UD_TLD: return undead(S(KC_GRV), record->event.pressed);
+    case UD_CIRC: return undead(S(KC_6), record->event.pressed);
 
     // Accented letters
-    case E_ACUTE:
-      return accented_letter(KC_QUOT, KC_E, record->event.pressed);
-    case E_GRV:
-      return accented_letter(KC_GRV, KC_E, record->event.pressed);
-    case E_CIRC:
-      return accented_letter(S(KC_6), KC_E, record->event.pressed);
-    case A_GRV:
-      return accented_letter(KC_GRV, KC_A, record->event.pressed);
-    case U_GRV:
-      return accented_letter(KC_GRV, KC_U, record->event.pressed);
+    case E_ACUTE: return accented_letter(KC_QUOT, KC_E, record->event.pressed);
+    case E_GRV: return accented_letter(KC_GRV, KC_E, record->event.pressed);
+    case E_CIRC: return accented_letter(S(KC_6), KC_E, record->event.pressed);
+    case A_GRV: return accented_letter(KC_GRV, KC_A, record->event.pressed);
+    case A_CIRC: return accented_letter(S(KC_6), KC_A, record->event.pressed);
+    case I_CIRC: return accented_letter(S(KC_6), KC_I, record->event.pressed);
+    case O_CIRC: return accented_letter(S(KC_6), KC_O, record->event.pressed);
+    case U_CIRC: return accented_letter(S(KC_6), KC_U, record->event.pressed);
+
+    // Bigrams
+    case BI_ON: if (record->event.pressed) { SEND_STRING("on"); } return true;
+    case BI_UN: if (record->event.pressed) { SEND_STRING("un"); } return true;
     default:
       return true;
 
@@ -274,15 +277,15 @@ const uint16_t PROGMEM reset_combo[] = {RST_1, RST_2, COMBO_END};
 
 combo_t key_combos[] = {/*{{{*/
   // Accents
-  [ER_E_ACUTE] = COMBO_ACTION(acute_e_combo),
-  [EW_E_GRAVE] = COMBO_ACTION(grave_e_combo),
-  [WER_E_CIRC] = COMBO_ACTION(circ_e_combo),
-  [UIO_I_CIRC] = COMBO_ACTION(i_circ_combo),
-  [IOP_O_CIRC] = COMBO_ACTION(o_circ_combo),
-  [YUI_U_CIRC] = COMBO_ACTION(u_circ_combo),
-  [ASD_A_CIRC] = COMBO_ACTION(a_circ_combo),
-  [AS_A_GRV] = COMBO_ACTION(a_grave_combo),
-  [XC_C_CED] = COMBO_ACTION(c_ced_combo),
+  [ER_E_ACUTE] = COMBO(acute_e_combo, E_ACUTE),
+  [EW_E_GRAVE] = COMBO(grave_e_combo, E_GRV),
+  [WER_E_CIRC] = COMBO(circ_e_combo, E_CIRC),
+  [UIO_I_CIRC] = COMBO(i_circ_combo, I_CIRC),
+  [IOP_O_CIRC] = COMBO(o_circ_combo, O_CIRC),
+  [YUI_U_CIRC] = COMBO(u_circ_combo, U_CIRC),
+  [ASD_A_CIRC] = COMBO(a_circ_combo, A_CIRC),
+  [AS_A_GRV] = COMBO(a_grave_combo, A_GRV),
+  [XC_C_CED] = COMBO(c_ced_combo, C_CED),
 
   // Common words
     // French
@@ -293,8 +296,8 @@ combo_t key_combos[] = {/*{{{*/
     [CA_CA] = COMBO_ACTION(ca_combo),
     [LA_LA] = COMBO_ACTION(la_combo),
     [PTE_PEUT_ETRE] = COMBO_ACTION(peut_etre_combo),
-    [UI_UN] = COMBO_ACTION(un_combo),
-    [OI_ON] = COMBO_ACTION(on_combo),
+    [UI_UN] = COMBO(un_combo, BI_UN),
+    [OI_ON] = COMBO(on_combo, BI_ON),
     [C_CEST] = COMBO_ACTION(cest_combo),
     [CM_COMME] = COMBO_ACTION(comme_combo),
     [ETR_ETRE] = COMBO_ACTION(etre_combo),
