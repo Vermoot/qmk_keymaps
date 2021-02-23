@@ -328,15 +328,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
   switch(combo_index) {
 
     // Accents{{{
-    case ER_E_ACUTE: accented_letter(KC_QUOT, KC_E, pressed); break;
-    case EW_E_GRAVE: accented_letter(KC_GRV, KC_E, pressed); break;
-    case WER_E_CIRC: accented_letter(S(KC_6), KC_E, pressed); break;
-    case UIO_I_CIRC: accented_letter(S(KC_6), KC_I, pressed); break;
-    case IOP_O_CIRC: accented_letter(S(KC_6), KC_O, pressed); break;
-    case YUI_U_CIRC: accented_letter(S(KC_6), KC_U, pressed); break;
-    case ASD_A_CIRC: accented_letter(S(KC_6), KC_A, pressed); break;
-    case AS_A_GRV: accented_letter(KC_GRV, KC_A, pressed); break;
-    case XC_C_CED: accented_letter(KC_QUOT, KC_C, pressed); break;
     /*}}}*/
 
     // Common words{{{
@@ -355,11 +346,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
     case PTE_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
                           unmod(KC_MINUS);
-                          tap_code(E_CIRC);
+                          tap_code16(E_CIRC);
                           SEND_STRING("tre");
                         } break;
-    case UI_UN: if (pressed) { tap_code(BI_UN); } break;
-    case OI_ON: if (pressed) { tap_code(BI_ON); } break;
     case C_CEST:
       if (pressed) {
         tap_code(KC_C);
