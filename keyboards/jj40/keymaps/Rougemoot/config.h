@@ -1,6 +1,8 @@
 #undef FORCE_NKRO
 #define FORCE_NKRO
 
+#define SWAP_HANDS_ENABLE
+
 // Home row mods options
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
@@ -8,7 +10,7 @@
 #define TAPPING_TERM_PER_KEY
 
 // Combos
-#define COMBO_COUNT 32
+#define COMBO_COUNT 39
 #define COMBO_TERM 30
 #define COMBO_TERM_PER_COMBO
 

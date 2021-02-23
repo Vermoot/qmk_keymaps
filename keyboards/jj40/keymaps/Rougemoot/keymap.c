@@ -16,6 +16,14 @@ void matrix_init_user() {
 }
 */
 
+// One-handed keyboard
+const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+  {{11, 0}, {10, 0}, {9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
+  {{11, 1}, {10, 1}, {9, 1}, {8, 1}, {7, 1}, {6, 1}, {5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
+  {{11, 2}, {10, 2}, {9, 2}, {8, 2}, {7, 2}, {6, 2}, {5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
+  {{11, 3}, {10, 3}, {9, 3}, {8, 3}, {7, 3}, {6, 3}, {5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
+};
+
 // ----------------- }}}
 
 // ---- Enums ---- {{{
@@ -121,11 +129,11 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed) {
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CTL_S:
-            return TAPPING_TERM + 100;
-        case CTL_L:
-            return TAPPING_TERM + 100;
-        default:
+        case CTL_S: return TAPPING_TERM + 100;
+        case CTL_L: return TAPPING_TERM + 100;
+        case ALT_K: return TAPPING_TERM + 100;
+        case ALT_D: return TAPPING_TERM + 100;
+        case SFT_A: return 175; default:
             return TAPPING_TERM;
     }
 }
@@ -190,11 +198,15 @@ enum combo_events {/*{{{*/
     CA_CA,
     LA_LA,
     PTE_PEUT_ETRE,
-    UJ_UN,
+    UI_UN,
     OI_ON,
     C_CEST,
     CM_COMME,
     ETR_ETRE,
+    DJ_DEJA,
+    PA_PAS,
+    C_A_CETAIT,
+    ME_MENT,
     // English
     I_CAPS,
     IM_IM,
@@ -207,6 +219,9 @@ enum combo_events {/*{{{*/
   CORNER_SPACE,
   JL_ALT_BCSP,
   A_SC_OSM_SFT,
+  A_SL_QUESTION,
+  RS_SPC_HANDS_SWAP,
+  LW_NAV_HANDS_SWAP,
   CMB_RESET,
 };/*}}}*/
 
@@ -230,11 +245,15 @@ const uint16_t PROGMEM laetitia_combo[] = {CTL_L, KC_T, SFT_A, COMBO_END};
 const uint16_t PROGMEM ca_combo[] = {KC_C, SFT_A, COMBO_END};
 const uint16_t PROGMEM la_combo[] = {CTL_L, SFT_A, COMBO_END};
 const uint16_t PROGMEM peut_etre_combo[] = {KC_P, KC_T, KC_E, COMBO_END};
-const uint16_t PROGMEM un_combo[] = {KC_U, CMD_J, COMBO_END};
+const uint16_t PROGMEM un_combo[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM on_combo[] = {KC_O, KC_I, COMBO_END};
 const uint16_t PROGMEM cest_combo[] = {KC_C, UD_APO, COMBO_END};
 const uint16_t PROGMEM comme_combo[] = {KC_C, KC_M, COMBO_END};
 const uint16_t PROGMEM etre_combo[] = {KC_E, KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM deja_combo[] = {ALT_D, CMD_J, COMBO_END};
+const uint16_t PROGMEM pas_combo[] = {KC_P, SFT_A, COMBO_END};
+const uint16_t PROGMEM cetait_combo[] = {KC_C, UD_APO, SFT_A, COMBO_END};
+const uint16_t PROGMEM ment_combo[] = {KC_M, KC_E, COMBO_END};
   // English
 const uint16_t PROGMEM cap_i_combo[] = {SFT_A, KC_I, COMBO_END};
 const uint16_t PROGMEM i_m_combo[] = {KC_I, KC_M, COMBO_END};
@@ -247,6 +266,9 @@ const uint16_t PROGMEM down_arrow[] = {FUNCT, CRN_L, COMBO_END};
 const uint16_t PROGMEM space_combo[] = {FUNCT, CRN_L, SELECT, COMBO_END};
 const uint16_t PROGMEM alt_bcsp_combo[] = {CMD_J, CTL_L, COMBO_END};
 const uint16_t PROGMEM a_sc_oneshotshift_combo[] = {SFT_A, SFT_SC, COMBO_END};
+const uint16_t PROGMEM question_mark_combo[] = {SFT_A, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM hands_swap_right[] = {RAISE, KC_SPC, COMBO_END};
+const uint16_t PROGMEM hands_swap_left[] = {LOWER, NAV, COMBO_END};
 const uint16_t PROGMEM reset_combo[] = {RST_1, RST_2, COMBO_END};
 /*}}}*/
 
@@ -271,11 +293,15 @@ combo_t key_combos[] = {/*{{{*/
     [CA_CA] = COMBO_ACTION(ca_combo),
     [LA_LA] = COMBO_ACTION(la_combo),
     [PTE_PEUT_ETRE] = COMBO_ACTION(peut_etre_combo),
-    [UJ_UN] = COMBO_ACTION(un_combo),
+    [UI_UN] = COMBO_ACTION(un_combo),
     [OI_ON] = COMBO_ACTION(on_combo),
     [C_CEST] = COMBO_ACTION(cest_combo),
     [CM_COMME] = COMBO_ACTION(comme_combo),
     [ETR_ETRE] = COMBO_ACTION(etre_combo),
+    [DJ_DEJA] = COMBO_ACTION(deja_combo),
+    [PA_PAS] = COMBO_ACTION(pas_combo),
+    [C_A_CETAIT] = COMBO_ACTION(cetait_combo),
+    [ME_MENT] = COMBO_ACTION(ment_combo),
     // English
     [I_CAPS] = COMBO(cap_i_combo, S(KC_I)),
     [IM_IM] = COMBO_ACTION(i_m_combo),
@@ -289,6 +315,9 @@ combo_t key_combos[] = {/*{{{*/
   [CORNER_SPACE] = COMBO(space_combo, KC_SPC),
   [JL_ALT_BCSP] = COMBO(alt_bcsp_combo, A(KC_BSPC)),
   [A_SC_OSM_SFT] = COMBO(a_sc_oneshotshift_combo, OSM(MOD_LSFT)),
+  [A_SL_QUESTION] = COMBO(question_mark_combo, S(KC_SLSH)),
+  [RS_SPC_HANDS_SWAP] = COMBO(hands_swap_right, SH_MON),
+  [LW_NAV_HANDS_SWAP] = COMBO(hands_swap_left, SH_MON),
   [CMB_RESET] = COMBO(reset_combo, RESET),
 };/*}}}*/
 
@@ -326,7 +355,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
                           unmod(S(KC_6));
                           SEND_STRING("etre");
                         } break;
-    case UJ_UN: if (pressed) { SEND_STRING("un"); } break;
+    case UI_UN: if (pressed) { SEND_STRING("un"); } break;
     case OI_ON: if (pressed) { SEND_STRING("on"); } break;
     case C_CEST:
       if (pressed) {
@@ -337,6 +366,23 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
       break;
     case CM_COMME: if (pressed) { SEND_STRING("comme"); } break;
     case ETR_ETRE: if (pressed) { accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("tre"); } break;
+    case DJ_DEJA: if (pressed) {
+          tap_code(KC_D);
+          accented_letter(KC_QUOT, KC_E, pressed);
+          tap_code(KC_J);
+    }
+      accented_letter(KC_GRV, KC_A, pressed);
+    break;
+    case PA_PAS: if (pressed) { SEND_STRING("pas"); } break;
+    case C_A_CETAIT:
+      if (pressed) {
+        tap_code(KC_C);
+        unmod(KC_QUOT);
+        accented_letter(KC_QUOT, KC_E, pressed);
+        SEND_STRING("tait");
+      }
+      break;
+    case ME_MENT: if (pressed) { SEND_STRING("ment"); } break;
     // English
     case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
@@ -352,12 +398,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   if (KEYCODE_IS_MOD(combo->keycode)) { return COMBO_MOD_TERM; }
   switch (index) {
+    case ER_E_ACUTE: return 20;
     case WER_E_CIRC: return 100;
     case UIO_I_CIRC: return 100;
     case IOP_O_CIRC: return 100;
     case YUI_U_CIRC: return 100;
     case ASD_A_CIRC: return 100;
-    case AS_A_GRV: return 50;
+    // case AS_A_GRV: return 50;
     case XC_C_CED: return 100;
     case BCP_BEAUCOUP: return 100;
     case MWER_MEME: return 100;
@@ -365,12 +412,17 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case CA_CA: return 50;
     case PTE_PEUT_ETRE: return 50;
     case C_CEST: return 50;
+    case UI_UN: return 20;
     case OI_ON: return 20;
     case I_CAPS: return 50;
     case A_SC_OSM_SFT: return 50;
     case JL_ALT_BCSP: return 100;
-    case CM_COMME: return 100;
-    case ETR_ETRE: return 10;
+    case CM_COMME: return 150;
+    case ETR_ETRE: return 15;
+    case C_A_CETAIT: return 100;
+    case A_SL_QUESTION: return 100;
+    case RS_SPC_HANDS_SWAP: return 150;
+    case LW_NAV_HANDS_SWAP: return 150;
   }
   return COMBO_TERM;
 }
