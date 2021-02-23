@@ -355,11 +355,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
     case PTE_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
                           unmod(KC_MINUS);
-                          unmod(S(KC_6));
-                          SEND_STRING("etre");
+                          tap_code(E_CIRC);
+                          SEND_STRING("tre");
                         } break;
-    case UI_UN: if (pressed) { SEND_STRING("un"); } break;
-    case OI_ON: if (pressed) { SEND_STRING("on"); } break;
+    case UI_UN: if (pressed) { tap_code(BI_UN); } break;
+    case OI_ON: if (pressed) { tap_code(BI_ON); } break;
     case C_CEST:
       if (pressed) {
         tap_code(KC_C);
