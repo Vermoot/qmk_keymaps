@@ -10,7 +10,7 @@
 #define TAPPING_TERM_PER_KEY
 
 // Combos
-#define COMBO_COUNT 39
+#define COMBO_COUNT 38
 #define COMBO_TERM 30
 #define COMBO_TERM_PER_COMBO
 

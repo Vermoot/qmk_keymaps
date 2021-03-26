@@ -129,7 +129,7 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed) {
 #define NUM   MO(_NUM)
 #define MEDIA LT(_MEDIA, KC_ENT)
 #define FUNCT MO(_FUNCT)
-#define SELECT MO(_SELECT)
+#define SELECT LT(_SELECT, KC_SPC)
 
 // Misc
 #define KC_EURO S(A(KC_2))
@@ -141,8 +141,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case CTL_L: return TAPPING_TERM + 100;
         case ALT_K: return TAPPING_TERM + 100;
         case ALT_D: return TAPPING_TERM + 100;
-        case SFT_A: return 175; default:
-            return TAPPING_TERM;
+        case SFT_A: return 175;
+        default: return TAPPING_TERM;
     }
 }
 // }}}
@@ -167,6 +167,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case I_CIRC: return accented_letter(S(KC_6), KC_I, record->event.pressed);
     case O_CIRC: return accented_letter(S(KC_6), KC_O, record->event.pressed);
     case U_CIRC: return accented_letter(S(KC_6), KC_U, record->event.pressed);
+    case C_CED: return accented_letter(KC_QUOT, KC_C, record->event.pressed);
 
     // Bigrams
     case BI_ON: if (record->event.pressed) { SEND_STRING("on"); } return true;
@@ -209,7 +210,7 @@ enum combo_events {/*{{{*/
     DJ_DEJA,
     PA_PAS,
     C_A_CETAIT,
-    ME_MENT,
+    MT_MENT,
     // English
     I_CAPS,
     IM_IM,
@@ -219,7 +220,7 @@ enum combo_events {/*{{{*/
   RIGHT_ARROW,
   UP_ARROW,
   DOWN_ARROW,
-  CORNER_SPACE,
+  /* CORNER_SPACE, */
   JL_ALT_BCSP,
   A_SC_OSM_SFT,
   A_SL_QUESTION,
@@ -256,17 +257,17 @@ const uint16_t PROGMEM etre_combo[] = {KC_E, KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM deja_combo[] = {ALT_D, CMD_J, COMBO_END};
 const uint16_t PROGMEM pas_combo[] = {KC_P, SFT_A, COMBO_END};
 const uint16_t PROGMEM cetait_combo[] = {KC_C, UD_APO, SFT_A, COMBO_END};
-const uint16_t PROGMEM ment_combo[] = {KC_M, KC_E, COMBO_END};
+const uint16_t PROGMEM ment_combo[] = {KC_M, KC_T, COMBO_END};
   // English
 const uint16_t PROGMEM cap_i_combo[] = {SFT_A, KC_I, COMBO_END};
 const uint16_t PROGMEM i_m_combo[] = {KC_I, KC_M, COMBO_END};
 const uint16_t PROGMEM dont_combo[] = {ALT_D, KC_N, COMBO_END};
 // Combo keys
-const uint16_t PROGMEM right_arrow[] = {CRN_L, SELECT, COMBO_END};
-const uint16_t PROGMEM left_arrow[] = {KC_BSPC, FUNCT, COMBO_END};
-const uint16_t PROGMEM up_arrow[] = {KC_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM down_arrow[] = {FUNCT, CRN_L, COMBO_END};
-const uint16_t PROGMEM space_combo[] = {FUNCT, CRN_L, SELECT, COMBO_END};
+const uint16_t PROGMEM right_arrow[] = {KC_RSFT, SELECT , COMBO_END};
+const uint16_t PROGMEM left_arrow[] = {KC_SLSH, CRN_L, COMBO_END};
+const uint16_t PROGMEM up_arrow[] = {KC_SLSH, KC_RSFT, COMBO_END};
+const uint16_t PROGMEM down_arrow[] = {SELECT, CRN_L, COMBO_END};
+/* const uint16_t PROGMEM space_combo[] = {FUNCT, CRN_L, SELECT, COMBO_END}; */
 const uint16_t PROGMEM alt_bcsp_combo[] = {CMD_J, CTL_L, COMBO_END};
 const uint16_t PROGMEM a_sc_oneshotshift_combo[] = {SFT_A, SFT_SC, COMBO_END};
 const uint16_t PROGMEM question_mark_combo[] = {SFT_A, KC_SLSH, COMBO_END};
@@ -304,7 +305,7 @@ combo_t key_combos[] = {/*{{{*/
     [DJ_DEJA] = COMBO_ACTION(deja_combo),
     [PA_PAS] = COMBO_ACTION(pas_combo),
     [C_A_CETAIT] = COMBO_ACTION(cetait_combo),
-    [ME_MENT] = COMBO_ACTION(ment_combo),
+    [MT_MENT] = COMBO_ACTION(ment_combo),
     // English
     [I_CAPS] = COMBO(cap_i_combo, S(KC_I)),
     [IM_IM] = COMBO_ACTION(i_m_combo),
@@ -315,7 +316,7 @@ combo_t key_combos[] = {/*{{{*/
   [RIGHT_ARROW] = COMBO(right_arrow, KC_RGHT),
   [UP_ARROW] = COMBO(up_arrow, KC_UP),
   [DOWN_ARROW] = COMBO(down_arrow, KC_DOWN),
-  [CORNER_SPACE] = COMBO(space_combo, KC_SPC),
+  /* [CORNER_SPACE] = COMBO(space_combo, KC_SPC), */
   [JL_ALT_BCSP] = COMBO(alt_bcsp_combo, A(KC_BSPC)),
   [A_SC_OSM_SFT] = COMBO(a_sc_oneshotshift_combo, OSM(MOD_LSFT)),
   [A_SL_QUESTION] = COMBO(question_mark_combo, S(KC_SLSH)),
@@ -346,7 +347,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
     case PTE_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
                           unmod(KC_MINUS);
-                          tap_code16(E_CIRC);
+                          accented_letter(S(KC_6), KC_E, pressed);
                           SEND_STRING("tre");
                         } break;
     case C_CEST:
@@ -374,7 +375,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {/*{{{*/
         SEND_STRING("tait");
       }
       break;
-    case ME_MENT: if (pressed) { SEND_STRING("ment"); } break;
+    case MT_MENT: if (pressed) { SEND_STRING("ment"); } break;
     // English
     case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
@@ -406,6 +407,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case C_CEST: return 50;
     case UI_UN: return 20;
     case OI_ON: return 20;
+    case MT_MENT: return 100;
     case I_CAPS: return 50;
     case A_SC_OSM_SFT: return 50;
     case JL_ALT_BCSP: return 100;
@@ -491,8 +493,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- MEDIA ---- {{{
 [_MEDIA] = LAYOUT_ortho_4x12( \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRIU, KC_VOLU, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRID, KC_VOLD, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRID, KC_VOLD, KC_F13, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_F14, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD \
 ),
 // --------------- }}}
