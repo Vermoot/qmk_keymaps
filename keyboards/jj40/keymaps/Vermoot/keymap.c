@@ -69,7 +69,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case A_SL_QUESTION: return 100;
     case RS_SPC_HANDS_SWAP: return 150;
     case LW_NAV_HANDS_SWAP: return 150;
-    case Q_NAV_QUE: return 100;
   }
   return COMBO_TERM;
 }
