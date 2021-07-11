@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 // ---------- }}}
 
-------------------------- }}} */
+// ------------------------- }}} */
 
 // ---- BASE LAYER ---- {{{
 [_BASE] = LAYOUT_ortho_4x12( \
