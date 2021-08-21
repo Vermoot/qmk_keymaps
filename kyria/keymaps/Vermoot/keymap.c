@@ -2,7 +2,6 @@
 
 enum layers {
     _BASE = 0,
-    _BASE2,
     _NAV,
     _LOWER,
     _RAISE,
@@ -25,11 +24,12 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
     // Shorter
     case OU_OU:
+    case AR_A_GRV:
       return COMBO_TERM - 10;
 
     // Longer
     case BOU_BEAUCOUP:
-    case PE_PEUT_ETRE:
+    case PER_PEUT_ETRE:
     case C_CEST:
     case I_CAPS:
     case AO_OS_SHIFT:
@@ -86,19 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
   ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       DF(_BASE2), _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, SELECT,
+  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,
                              _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT
 ),
 // ---- END TEST BASE LAYER ---- }}}
-
-// ---- BASE2 LAYER ---- {{{
-[_BASE2] = LAYOUT(
-  TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
-  ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       DF(_BASE), _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, SELECT,
-                             _______, NUM,     NAV,     LOWER,   _______,       FUNCT,   RAISE,   KC_SPC,  KC_BSPC, SELECT
-),
-// ---- END BASE2 LAYER ---- }}}
 
 // ---- NAV ---- {{{
 [_NAV] = LAYOUT(

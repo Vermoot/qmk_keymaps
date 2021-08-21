@@ -1,5 +1,4 @@
 BOOTLOADER = caterina
-BOOTMAGIC_ENABLE = full
 LTO_ENABLE = yes
 
 VPATH  +=  keyboards/gboards/
@@ -10,3 +9,5 @@ MOUSEKEY_ENABLE = no
 STENO_ENABLE = yes
 
 RGBLIGHT_ENABLE = no
+OLED_DRIVER_ENABLE = no
+ENCODER_ENABLE = no

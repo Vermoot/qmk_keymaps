@@ -9,7 +9,7 @@
                        } break;
     case LA_LA: if (pressed) { tap_code(KC_L); } accented_letter(KC_GRV, KC_A, pressed); break;
     case CA_CA: if (pressed) { accented_letter(KC_QUOT, KC_C, pressed); tap_code(KC_A); } break;
-    case PE_PEUT_ETRE: if (pressed) {
+    case PER_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
                           unmod(KC_MINUS);
                           accented_letter(S(KC_6), KC_E, pressed);
@@ -54,4 +54,7 @@
       // English
     case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
+
+      // Misc
+    case UYD_SMILE: if (pressed) { tap_code16(KC_COLN); tap_code16(S(KC_D)); } break;
   }
