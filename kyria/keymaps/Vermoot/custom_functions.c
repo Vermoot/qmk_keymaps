@@ -13,6 +13,8 @@ void unmod(uint16_t letter) {
   uint8_t osm_state = get_oneshot_mods();
   unregister_mods(MOD_MASK_SHIFT);
   del_oneshot_mods(MOD_MASK_SHIFT);
+  /* clear_mods(); */
+  /* clear_oneshot_mods(); */
   tap_code16(letter);
   register_mods(mod_state);
   add_oneshot_mods(osm_state);
@@ -24,6 +26,6 @@ bool accented_letter(uint16_t accent, uint16_t letter, bool pressed) {
     register_code(letter);              // Press letter.
   } else {                              // On release: (this is for repeats on hold down)
     unregister_code(letter);            // Release letter
-  }                                     // If shi wft is pressed it'll be released by the user
+  }                                     // If shift is pressed it'll be released by the user
   return false;                         // Don't continue with the key handling.
 }

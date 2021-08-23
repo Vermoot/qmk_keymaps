@@ -52,14 +52,16 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case QE_QUE:
     case QI_QUI:
     case QO_QUOI:
-    case QUO_QUON:
-    case QUI_QUIL:
+    case QON_QUON:
+    case QIL_QUIL:
+    case QEL_QUELLE:
+    case QN_QUELQUUN:
+    case QUN_QUUN:
       return COMBO_TERM + 70;
 
     // Long as fuck
     case AJD_AJD:
     case LTA_LAETITIA:
-    case QUL_QUELLE:
       return COMBO_TERM + 120;
   }
   return COMBO_TERM;

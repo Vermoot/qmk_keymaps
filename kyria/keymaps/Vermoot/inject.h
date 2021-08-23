@@ -46,9 +46,12 @@
       if (pressed) { accented_letter(KC_QUOT, KC_E, pressed); SEND_STRING("taient"); } break;
     case AJD_AJD:
       if (pressed) { SEND_STRING("aujourd"); unmod(KC_QUOT); SEND_STRING("hui"); } break;
-    case QUO_QUON: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" on"); } break;
-    case QUL_QUELLE: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" elle"); } break;
-    case QUI_QUIL: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" il"); } break;
+    case QEI_QUE: if (pressed) { SEND_STRING("qu"); } accented_letter(KC_QUOT, KC_E, pressed); break;
+    case QON_QUON: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" on"); } break;
+    case QIL_QUIL: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" il"); } break;
+    case QEL_QUELLE: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" elle"); } break;
+    case QN_QUELQUUN: if (pressed) { SEND_STRING("quelqu"); unmod(KC_QUOT); SEND_STRING(" un"); } break;
+    case QUN_QUUN: if (pressed) { SEND_STRING("qu"); unmod(KC_QUOT); SEND_STRING(" un"); } break;
     case Q_AP_QU: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" "); } break;
 
       // English
