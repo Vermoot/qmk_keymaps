@@ -39,18 +39,21 @@
 #define KC_EURO S(A(KC_2))
 
 // Tapping terms {{{
+/* static uint16_t non_mod_input_timer = 0; */
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CMMD_N: return TAPPING_TERM + 100;
-        case CMMD_T: return TAPPING_TERM + 100;
-        case CTL_S: return TAPPING_TERM + 100;
-        case CTL_L: return TAPPING_TERM + 100;
-        case ALT_K: return TAPPING_TERM + 100;
-        case ALT_D: return TAPPING_TERM + 100;
-        case CTL_R: return TAPPING_TERM + 100;
-        case CTL_I: return TAPPING_TERM + 100;
-        case ALT_E: return TAPPING_TERM + 100;
-        case ALT_S: return TAPPING_TERM + 100;
+        case CMMD_N:
+        case CMMD_T:
+        case CTL_S:
+        case CTL_L:
+        case ALT_K:
+        case ALT_D:
+        case CTL_R:
+        case CTL_I:
+        case ALT_E:
+        case ALT_S:
+          /* return timer_elapsed(non_mod_input_timer) > 500 ? TAPPING_TERM + 100 : 5; */
+          return TAPPING_TERM + 100;
         case SFT_A: return 175;
         case SFT_O: return 250;
         default: return TAPPING_TERM;

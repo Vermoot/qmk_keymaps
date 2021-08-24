@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT(
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
   ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,
+  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, E_ACUTE,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,
                              _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT
 ),
 // ---- END TEST BASE LAYER ---- }}}

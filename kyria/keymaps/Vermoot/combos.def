@@ -29,6 +29,10 @@ COMB(BACKTICK,              UD_GRV,              KC_Z, KC_C)
 COMB(TILDE,                 UD_TLD,              KC_Z, KC_D)
 SUBS(ARROW,                 "->",                KC_M, KC_L)
 SUBS(FAT_ARROW,             "=>",                CMMD_N, KC_SCLN)
+COMB(WF_AT,                 KC_AT,               KC_W, KC_F)
+COMB(FP_POUND,              KC_HASH,             KC_F, KC_P)
+COMB(FT_AMP,                KC_AMPR,             KC_F, CMMD_T)
+COMB(LU_ASTR,               KC_ASTR,             KC_L, KC_U)
 
 
 // Accents
