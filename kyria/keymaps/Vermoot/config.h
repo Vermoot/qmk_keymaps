@@ -14,5 +14,5 @@
 #define COMBO_TERM_PER_COMBO
 
 // One shot mods
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 3000
+// #define ONESHOT_TAP_TOGGLE 2
+// #define ONESHOT_TIMEOUT 3000

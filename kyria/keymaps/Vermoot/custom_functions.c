@@ -11,10 +11,9 @@ bool undead(uint16_t  character, bool pressed) {
 void unmod(uint16_t letter) {
   uint8_t mod_state = get_mods();
   uint8_t osm_state = get_oneshot_mods();
-  unregister_mods(MOD_MASK_SHIFT);
-  del_oneshot_mods(MOD_MASK_SHIFT);
-  /* clear_mods(); */
-  /* clear_oneshot_mods(); */
+  clear_mods(); clear_oneshot_mods(); clear_macro_mods(); clear_weak_mods();
+  /* unregister_mods(MOD_MASK_SHIFT); */
+  /* del_oneshot_mods(MOD_MASK_SHIFT); */
   tap_code16(letter);
   register_mods(mod_state);
   add_oneshot_mods(osm_state);
