@@ -25,6 +25,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // Shorter
     case OU_OU:
     case AR_A_GRV:
+    case NI_ALT_BSPC:
       return COMBO_TERM - 10;
 
     // Longer
@@ -34,6 +35,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case I_CAPS:
     case AO_OS_SHIFT:
     case CM_COMME:
+    case PLOVER_RET:
       return COMBO_TERM + 20;
 
     // Long
