@@ -3,6 +3,8 @@ COMB(NI_ALT_BSPC,           A(KC_BSPC),          CMMD_N, CTL_I)
 COMB(AO_OS_SHIFT,           OSM(MOD_LSFT),       SFT_A, SFT_O)
 COMB(A_SL_QUESTION,         S(KC_SLSH),          SFT_A, KC_SLSH)
 COMB(PLOVER_ON,             DF(_STENO),          KC_X, KC_C, KC_COMM, KC_DOT)
+COMB(LEFT_HYPER,            KC_HYPR,             SFT_A, CTL_R, ALT_S, CMMD_T)
+COMB(RIGHT_HYPER,           KC_HYPR,             SFT_O, CTL_I, ALT_E, CMMD_N)
 
 COMB(LEFT_ARROW,            KC_LEFT,             KC_MINS, SFT_O)
 COMB(RIGHT_ARROW,           KC_RIGHT,            UD_APO, SELECT)

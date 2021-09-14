@@ -37,6 +37,7 @@
 
 // Misc
 #define KC_EURO S(A(KC_2))
+#define STENESC LT(0, KC_A) // hijacked and used later
 
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -85,28 +86,66 @@ enum custom_keycodes {
   O_CIRC,
   U_CIRC,
   C_CED,
+
+  // Utilities
+  /* STENESC, */
+  MOBASE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  const bool pressed = record->event.pressed;
+  static layer_state_t prev_layers = 0;
+  /* static uint16_t key_timer; */
+
   switch (keycode) {
 
     // Undead characters
-    case UD_APO: return undead(KC_QUOT, record->event.pressed);
-    case UD_GRV: return undead(KC_GRV, record->event.pressed);
-    case UD_TLD: return undead(S(KC_GRV), record->event.pressed);
-    case UD_CIRC: return undead(S(KC_6), record->event.pressed);
+    case UD_APO: return undead(KC_QUOT, pressed);
+    case UD_GRV: return undead(KC_GRV, pressed);
+    case UD_TLD: return undead(S(KC_GRV), pressed);
+    case UD_CIRC: return undead(S(KC_6), pressed);
 
     // Accented letters
-    case E_ACUTE: return accented_letter(KC_QUOT, KC_E, record->event.pressed);
-    case E_GRV: return accented_letter(KC_GRV, KC_E, record->event.pressed);
-    case E_CIRC: return accented_letter(S(KC_6), KC_E, record->event.pressed);
-    case A_GRV: return accented_letter(KC_GRV, KC_A, record->event.pressed);
-    case U_GRV: return accented_letter(KC_GRV, KC_U, record->event.pressed);
-    case A_CIRC: return accented_letter(S(KC_6), KC_A, record->event.pressed);
-    case I_CIRC: return accented_letter(S(KC_6), KC_I, record->event.pressed);
-    case O_CIRC: return accented_letter(S(KC_6), KC_O, record->event.pressed);
-    case U_CIRC: return accented_letter(S(KC_6), KC_U, record->event.pressed);
-    case C_CED: return accented_letter(KC_QUOT, KC_C, record->event.pressed);
+    case E_ACUTE: return accented_letter(KC_QUOT, KC_E, pressed);
+    case E_GRV: return accented_letter(KC_GRV, KC_E, pressed);
+    case E_CIRC: return accented_letter(S(KC_6), KC_E, pressed);
+    case A_GRV: return accented_letter(KC_GRV, KC_A, pressed);
+    case U_GRV: return accented_letter(KC_GRV, KC_U, pressed);
+    case A_CIRC: return accented_letter(S(KC_6), KC_A, pressed);
+    case I_CIRC: return accented_letter(S(KC_6), KC_I, pressed);
+    case O_CIRC: return accented_letter(S(KC_6), KC_O, pressed);
+    case U_CIRC: return accented_letter(S(KC_6), KC_U, pressed);
+    case C_CED: return accented_letter(KC_QUOT, KC_C, pressed);
+
+    // Utilities
+    case STENESC:
+      if (record->tap.count == 0) {
+        if (pressed) {
+          prev_layers = layer_state;
+          set_mods(0x0F);
+          layer_move(_BASE);
+        } else {
+          layer_state_set(prev_layers);
+          clear_mods();
+        }
+      } else if (record->tap.count > 0) {
+        if (pressed) {
+          layer_move(_BASE);
+        }
+      }
+      return false;
+
+    case MOBASE:
+      if (record->tap.count == 0) {
+        if (pressed) {
+          prev_layers = layer_state;
+          layer_move(_BASE);
+        } else {
+          layer_state_set(prev_layers);
+        }
+      }
+      return false;
 
     default:
       return true;

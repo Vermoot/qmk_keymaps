@@ -2,15 +2,14 @@
 
 enum layers {
     _BASE = 0,
+    _STENO,
     _NAV,
     _LOWER,
     _RAISE,
     _NUM,
     _MEDIA,
     _FUNCT,
-    _SELECT,
-    _STENO
-
+    _SELECT
 };
 
 #include "custom_functions.c"
@@ -64,6 +63,8 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // Long as fuck
     case AJD_AJD:
     case LTA_LAETITIA:
+    case LEFT_HYPER:
+    case RIGHT_HYPER:
       return COMBO_TERM + 120;
   }
   return COMBO_TERM;
@@ -161,9 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- STENO ---- {{{
 [_STENO] = LAYOUT(
   BASE,    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
-  BASE,    STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+  STENESC, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
   _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, NUM,     _______,       _______, _______, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-                             _______, NAV,     STN_A,   STN_O,   LOWER,         RAISE,   STN_E,   STN_U,   _______, _______
+                             _______, NAV,     STN_A,   STN_O,   MOBASE,        RAISE,   STN_E,   STN_U,   _______, _______
 ),
 // ---- END STENO ---- }}}
 
