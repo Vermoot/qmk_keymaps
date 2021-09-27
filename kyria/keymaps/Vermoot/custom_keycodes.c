@@ -38,6 +38,7 @@
 // Misc
 #define KC_EURO S(A(KC_2))
 #define STENESC LT(0, KC_A) // hijacked and used later
+#define STENTAB LT(0, KC_B) // hijacked and used later
 
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -96,7 +97,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   const bool pressed = record->event.pressed;
   static layer_state_t prev_layers = 0;
-  /* static uint16_t key_timer; */
 
   switch (keycode) {
 
@@ -123,25 +123,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->tap.count == 0) {
         if (pressed) {
           prev_layers = layer_state;
-          set_mods(0x0F);
-          layer_move(_BASE);
+          layer_move(_UBERBASE);
+          set_mods(MOD_BIT(KC_LCTRL) |
+                   MOD_BIT(KC_LALT) |
+                   MOD_BIT(KC_LSHIFT) |
+                   MOD_BIT(KC_LGUI)); // Hyper
         } else {
+          unregister_mods(0x0F); // Hyper
           layer_state_set(prev_layers);
-          clear_mods();
         }
       } else if (record->tap.count > 0) {
         if (pressed) {
-          layer_move(_BASE);
+          default_layer_set(0x000000001); // DF(_BASE)
         }
       }
       return false;
 
-    case MOBASE:
+    case STENTAB:
       if (record->tap.count == 0) {
         if (pressed) {
           prev_layers = layer_state;
-          layer_move(_BASE);
+          layer_move(_UBERBASE);
+          set_mods(MOD_BIT(KC_LCTRL) |
+                   MOD_BIT(KC_LALT) |
+                   MOD_BIT(KC_LSHIFT)); // Meh
         } else {
+          unregister_mods(MOD_BIT(KC_LCTRL) |
+                          MOD_BIT(KC_LALT) |
+                          MOD_BIT(KC_LSHIFT)); // Meh
           layer_state_set(prev_layers);
         }
       }

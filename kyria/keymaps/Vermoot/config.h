@@ -7,6 +7,7 @@
 // #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
+#undef TAPPING_FORCE_HOLD
 
 // Combos
 #define COMBO_VARIABLE_LEN

@@ -9,7 +9,8 @@ enum layers {
     _NUM,
     _MEDIA,
     _FUNCT,
-    _SELECT
+    _SELECT,
+    _UBERBASE
 };
 
 #include "custom_functions.c"
@@ -72,6 +73,15 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 // ---- END Combo terms ---- }}}
 
 // --------------- LAYERS -------------------- {{{
+
+// ---- BASE LAYER MACRO ---- {{{
+#define BASELAYER LAYOUT(\
+  TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
+  ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,\
+  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, E_ACUTE,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
+                             _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
+// ---- END BASE LAYER MACRO ---- }}}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ---- BLANK LAYOUT ---- {{{
@@ -87,14 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ------------------------- }}} */
 
-// ---- BASE LAYER ---- {{{
-[_BASE] = LAYOUT(
-  TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
-  ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, E_ACUTE,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,
-                             _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT
-),
-// ---- END TEST BASE LAYER ---- }}}
+[_BASE] = BASELAYER,
 
 // ---- NAV ---- {{{
 [_NAV] = LAYOUT(
@@ -161,12 +164,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ---- STENO ---- {{{
 [_STENO] = LAYOUT(
-  BASE,    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
+  STENTAB,    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
   STENESC, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
   _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, NUM,     _______,       _______, _______, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-                             _______, NAV,     STN_A,   STN_O,   MOBASE,        RAISE,   STN_E,   STN_U,   _______, _______
+                             _______, NAV,     STN_A,   STN_O,   MO(_UBERBASE), RAISE,   STN_E,   STN_U,   _______, _______
 ),
 // ---- END STENO ---- }}}
+
+[_UBERBASE] = BASELAYER
 
 };
 // --------------- END LAYERS --------------- }}}
