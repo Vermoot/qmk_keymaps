@@ -28,7 +28,7 @@
 #define BASE  DF(_BASE)
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
-#define NAV   MO(_NAV)
+#define NAV   LT(_NAV, KC_NO)
 #define NUM   MO(_NUM)
 #define MEDIA LT(_MEDIA, KC_ENT)
 #define FUNCT MO(_FUNCT)
@@ -119,6 +119,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case C_CED: return accented_letter(KC_QUOT, KC_C, pressed);
 
     // Utilities
+    case NAV:
+      if (record->tap.count == 0) {
+        if (pressed) {
+          prev_layers = layer_state;
+          layer_move(_NAV);
+        } else {
+          layer_state_set(prev_layers);
+        }
+      } else if (record->tap.count > 0) {
+        if (pressed) {
+          add_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        }
+      }
+      return false;
+
     case STENESC:
       if (record->tap.count == 0) {
         if (pressed) {

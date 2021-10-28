@@ -18,6 +18,16 @@ enum layers {
 #include "g/keymap_combo.h"
 #include "keymap_steno.h"
 
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_A:
+        case SFT_O:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // ---- Combo terms ---- {{{
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
@@ -111,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- LOWER ---- {{{
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
-  _______, _______, KC_LCBR, KC_LBRC, KC_LPRN, KC_UNDS,                                           KC_MINS, KC_RPRN, KC_RBRC, KC_RCBR, _______, KC_BSLS,
+  _______, _______, KC_LCBR, KC_LBRC, KC_LPRN, KC_UNDS,                                           KC_MINS, KC_RPRN, KC_RBRC, KC_RCBR, _______, _______,
   _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,    _______, _______,       _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
                              _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
@@ -129,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- NUM ---- {{{
 [_NUM] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                                           KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, KC_BSPC,
-  _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                                           KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
+  _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                                           KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_QUOT,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, KC_PEQL, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
                              _______, _______, _______, _______, _______,       KC_SPC,  KC_P0,   KC_BSPC, _______, KC_PDOT
 ),
