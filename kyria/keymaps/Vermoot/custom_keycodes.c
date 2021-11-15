@@ -2,27 +2,19 @@
 
 // Modtaps n stuff
 #define ESC_HYP MT(MOD_HYPR, KC_ESC)
+#define ESC_GUI MT(MOD_LGUI, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
 #define OSM_SFT OSM(MOD_LSFT)
 
 // Home row mods
-#define SFT_A MT(MOD_LSFT, KC_A)
-#define SFT_O MT(MOD_RSFT, KC_O)
-#define CTL_R MT(MOD_LCTL, KC_R)
-#define CTL_I MT(MOD_RCTL, KC_I)
-#define ALT_S MT(MOD_LALT, KC_S)
-#define ALT_E MT(MOD_LALT, KC_E)
-#define CMMD_T MT(MOD_LGUI, KC_T)
-#define CMMD_N MT(MOD_RGUI, KC_N)
-
-// QWERTY Home Row Mods
-#define SFT_SC MT(MOD_RSFT, KC_SCLN)
-#define CTL_S MT(MOD_LCTL, KC_S)
-#define CTL_L MT(MOD_RCTL, KC_L)
-#define ALT_D MT(MOD_LALT, KC_D)
-#define ALT_K MT(MOD_LALT, KC_K)
-#define CMMD_F MT(MOD_LGUI, KC_F)
-#define CMMD_J MT(MOD_RGUI, KC_J)
+#define HRM_A MT(MOD_LSFT, KC_A)
+#define HRM_O MT(MOD_RSFT, KC_O)
+#define HRM_R MT(MOD_LCTL, KC_R)
+#define HRM_I MT(MOD_RCTL, KC_I)
+#define HRM_S MT(MOD_LALT, KC_S)
+#define HRM_E MT(MOD_LALT, KC_E)
+#define HRM_T MT(MOD_LGUI, KC_T)
+#define HRM_N MT(MOD_RGUI, KC_N)
 
 // Layer keys
 #define BASE  DF(_BASE)
@@ -34,6 +26,7 @@
 #define FUNCT MO(_FUNCT)
 #define SELECT LT(_SELECT, KC_SPC)
 #define STENO DF(_STENO)
+#define BASE_MAC DF(_BASE_MAC)
 
 // Misc
 #define KC_EURO S(A(KC_2))
@@ -44,21 +37,17 @@
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     /* static uint16_t non_mod_input_timer = 0; */
     switch (keycode) {
-        case CMMD_N:
-        case CMMD_T:
-        case CTL_S:
-        case CTL_L:
-        case ALT_K:
-        case ALT_D:
-        case CTL_R:
-        case CTL_I:
-        case ALT_E:
-        case ALT_S:
+        case HRM_N:
+        case HRM_T:
+        case HRM_R:
+        case HRM_I:
+        case HRM_E:
+        case HRM_S:
           /* return timer_elapsed(non_mod_input_timer) > 500 ? 50 : TAPPING_TERM + 100; */
           return TAPPING_TERM;
-        case SFT_A:
+        case HRM_A:
           return TAPPING_TERM - 25;
-        case SFT_O:
+        case HRM_O:
           return TAPPING_TERM + 50;
         default:
           return TAPPING_TERM;

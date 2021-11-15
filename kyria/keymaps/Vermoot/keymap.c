@@ -2,6 +2,7 @@
 
 enum layers {
     _BASE = 0,
+    _BASE_MAC,
     _STENO,
     _NAV,
     _LOWER,
@@ -20,8 +21,8 @@ enum layers {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case SFT_A:
-        case SFT_O:
+        case HRM_A:
+        case HRM_O:
             return true;
         default:
             return false;
@@ -35,7 +36,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // Shorter
     case OU_OU:
     case AR_A_GRV:
-    case NI_ALT_BSPC:
+    case NI_HRM_BSPC:
       return COMBO_TERM - 10;
 
     // Longer
@@ -87,8 +88,14 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 // ---- BASE LAYER MACRO ---- {{{
 #define BASELAYER LAYOUT(\
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
-  ESC_HYP, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,                                              KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,\
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, E_ACUTE,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
+  ESC_GUI, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,                                              KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,\
+  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
+                             _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
+
+#define BASELAYERMAC LAYOUT(\
+  TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
+  ESC_HYP, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,                                              KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,\
+  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
                              _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
 // ---- END BASE LAYER MACRO ---- }}}
 
@@ -109,10 +116,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = BASELAYER,
 
+[_BASE_MAC] = BASELAYERMAC,
+
 // ---- NAV ---- {{{
 [_NAV] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                                           _______, KC_PGDN, KC_PGUP, _______, _______, _______,
-  _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+  _______, _______, BASE_MAC, BASE,   _______, _______,                                           _______, KC_PGDN, KC_PGUP, _______, _______, _______,
+  _______, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, _______,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______,       _______, _______, KC_DEL,  _______, _______
 ),
@@ -139,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- NUM ---- {{{
 [_NUM] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                                           KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, KC_BSPC,
-  _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                                           KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_QUOT,
+  _______, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, _______,                                           KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_QUOT,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, KC_PEQL, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
                              _______, _______, _______, _______, _______,       KC_SPC,  KC_P0,   KC_BSPC, _______, KC_PDOT
 ),
@@ -157,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- FUNCT ---- {{{
 [_FUNCT] = LAYOUT(
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,                                           _______, _______, _______, _______, _______, _______,
-  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,                                           _______, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT, _______,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,                                           _______, KC_RCTL, KC_RALT, KC_RGUI, KC_RSFT, _______,
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
@@ -174,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ---- STENO ---- {{{
 [_STENO] = LAYOUT(
-  STENTAB,    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
+  STENTAB, STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
   STENESC, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
   _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, NUM,     _______,       _______, _______, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
                              _______, NAV,     STN_A,   STN_O,   MO(_UBERBASE), RAISE,   STN_E,   STN_U,   _______, _______

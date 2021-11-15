@@ -34,6 +34,7 @@
       if (pressed) {
         tap_code(KC_C);
         unmod(KC_QUOT);
+        tap_code(KC_SPACE);
         accented_letter(KC_QUOT, KC_E, pressed);
         SEND_STRING("tait");
       }
@@ -45,7 +46,7 @@
     case EITAN_ETAIENT:
       if (pressed) { accented_letter(KC_QUOT, KC_E, pressed); SEND_STRING("taient"); } break;
     case AJD_AJD:
-      if (pressed) { SEND_STRING("aujourd"); unmod(KC_QUOT); SEND_STRING("hui"); } break;
+      if (pressed) { SEND_STRING("aujourd"); unmod(KC_QUOT); SEND_STRING(" hui"); } break;
     case QEI_QUE: if (pressed) { SEND_STRING("qu"); } accented_letter(KC_QUOT, KC_E, pressed); break;
     case QON_QUON: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" on"); } break;
     case QIL_QUIL: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" il"); } break;
@@ -55,7 +56,7 @@
     case Q_AP_QU: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" "); } break;
 
       // English
-    case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;
+    case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_SPC); tap_code(KC_M); } break;
     case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
 
       // Misc
