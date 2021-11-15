@@ -9,12 +9,12 @@
 // Home row mods
 #define HRM_A MT(MOD_LSFT, KC_A)
 #define HRM_O MT(MOD_RSFT, KC_O)
-#define HRM_R MT(MOD_LCTL, KC_R)
-#define HRM_I MT(MOD_RCTL, KC_I)
+#define HRM_R MT(MOD_LGUI, KC_R)
+#define HRM_I MT(MOD_RGUI, KC_I)
 #define HRM_S MT(MOD_LALT, KC_S)
 #define HRM_E MT(MOD_LALT, KC_E)
-#define HRM_T MT(MOD_LGUI, KC_T)
-#define HRM_N MT(MOD_RGUI, KC_N)
+#define HRM_T MT(MOD_LCTL, KC_T)
+#define HRM_N MT(MOD_RCTL, KC_N)
 
 // Layer keys
 #define BASE  DF(_BASE)
