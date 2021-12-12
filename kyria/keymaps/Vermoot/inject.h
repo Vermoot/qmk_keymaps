@@ -1,6 +1,7 @@
   switch(combo_index) {
     case OU_OU: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed); break;
     case MNE_MEME: if (pressed) { tap_code(KC_M); accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("me"); } break;
+    case QMNE_QUAND_MEME: if (pressed) { SEND_STRING("quand m"); accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("me"); } break;
     case LTA_LAETITIA: if (pressed) {
                          unmod(S(KC_L));
                          SEND_STRING("a");

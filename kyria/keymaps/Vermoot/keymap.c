@@ -64,7 +64,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case A_SL_QUESTION:
     case QE_QUE:
     case QI_QUI:
-    case QO_QUOI:
+    /* case QO_QUOI: */
     case QON_QUON:
     case QIL_QUIL:
     case QEL_QUELLE:
