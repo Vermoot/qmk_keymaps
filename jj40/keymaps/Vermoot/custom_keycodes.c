@@ -2,6 +2,7 @@
 
 // Modtaps n stuff
 #define ESC_FN MT(MOD_HYPR, KC_ESC)
+#define ESC_GUI MT(MOD_LGUI, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
 #define OSM_SFT OSM(MOD_LSFT)
 
@@ -17,12 +18,12 @@
 
 // QWERTY Home Row Mods
 #define SFT_SC MT(MOD_RSFT, KC_SCLN)
-#define CTL_S MT(MOD_LCTL, KC_S)
-#define CTL_L MT(MOD_RCTL, KC_L)
+#define CTL_S MT(MOD_LGUI, KC_S)
+#define CTL_L MT(MOD_RGUI, KC_L)
 #define ALT_D MT(MOD_LALT, KC_D)
 #define ALT_K MT(MOD_LALT, KC_K)
-#define CMMD_F MT(MOD_LGUI, KC_F)
-#define CMMD_J MT(MOD_RGUI, KC_J)
+#define CMMD_F MT(MOD_LCTL, KC_F)
+#define CMMD_J MT(MOD_RCTL, KC_J)
 
 // Layer keys
 #define BASE  DF(_BASE)

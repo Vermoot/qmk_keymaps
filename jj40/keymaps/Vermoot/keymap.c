@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- BASE LAYER ---- {{{
 [_BASE] = LAYOUT_ortho_4x12( \
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
-  ESC_FN,  SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,    KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
+  ESC_GUI, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,    KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
   OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   SELECT
 ),
