@@ -7,7 +7,6 @@
 
 enum layers {
   _BASE,
-  _QWERTY,
   _RAISE,
   _LOWER,
   _NAV,
@@ -39,17 +38,6 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{11, 3}, {10, 3}, {9, 3}, {8, 3}, {7, 3}, {6, 3}, {5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
 };
 
-bool combo_should_trigger(uint16_t combo_index, combo_t *combo) {
-
-  bool colemak = layer_state_is(_BASE);
-  bool qwerty = layer_state_is(_QWERTY);
-
-  switch (combo_index) {
-    case EI_E_ACUTE: return colemak;
-    case ER_E_ACUTE: return qwerty;
-  }
-  return true;
-}
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   /* if (KEYCODE_IS_MOD(combo->keycode)) { return COMBO_MOD_TERM; } */
@@ -57,22 +45,22 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     /* case EI_E_ACUTE: return 20; */
     /* case NEI_E_CIRC: return 50; */
     case EIO_I_CIRC: return 100;
-    case IO_AP_O_CIRC: return 100;
+    case IO_O_CIRC: return 100;
     case LUY_U_CIRC: return 100;
     case ARS_A_CIRC: return 100;
     // case AR_A_GRV: return 50;
     /* case XC_C_CED: return 100; */
-    case BP_BEAUCOUP: return 50;
+    case BOU_BEAUCOUP: return 50;
     case OU_OU: return COMBO_TERM - 10;
-    case MNEI_MEME: return 100;
+    case MNE_MEME: return 100;
     case LTA_LAETITIA: return 100;
     /* case CA_CA: return 50; */
-    case PE_PEUT_ETRE: return 50;
+    case PER_PEUT_ETRE: return 50;
     case C_CEST: return 50;
     case MT_MENT: return 100;
     case I_CAPS: return 50;
     case AO_OS_SHIFT: return 50;
-    /* case NI_ALT_BCSP: return 50; */
+    /* case NI_HRM_BCSP: return 50; */
     case CM_COMME: return 150;
     case ETR_ETRE: return 100;
     case C_A_CETAIT: return 100;
@@ -105,20 +93,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- BASE LAYER ---- {{{
 [_BASE] = LAYOUT_ortho_4x12( \
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
-  ESC_GUI, SFT_A,   CTL_R,   ALT_S,   CMMD_T,  KC_G,    KC_M,    CMMD_N,  ALT_E,   CTL_I,   SFT_O,   UD_APO,
+  ESC_GUI, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,    KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,
   OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   SELECT
+  KC_LCTL, KC_LALT, KC_LGUI, _______, NUM,     NAV,     KC_SPC,  KC_BSPC, FUNCT,   _______, CRN_L,   SELECT
 ),
 // -------------------- }}}
 
-// ---- QWERTY ---- {{{
-[_QWERTY] = LAYOUT_ortho_4x12( \
-  TAB_MEH, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    MEDIA,
-  ESC_FN,  SFT_A,   CTL_S,   ALT_D,   CMMD_F,  KC_G,    KC_H,    CMMD_J,  ALT_K,   CTL_L,   SFT_SC,  UD_APO,
-  OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   DF(_BASE)
-),
-// -------------------- }}}
 
 // ---- RAISE ---- {{{
 [_RAISE] = LAYOUT_ortho_4x12( \
@@ -176,10 +156,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ---- SELECT ---- {{{
 [_SELECT] = LAYOUT_ortho_4x12(
-  _______, DF(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_STENO),
-  _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_GAMING),
-  _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_STENO),
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_GAMING),
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // ---------------- }}}
 

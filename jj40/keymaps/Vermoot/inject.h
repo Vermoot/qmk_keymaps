@@ -1,6 +1,6 @@
   switch(combo_index) {
     case OU_OU: if (pressed) { tap_code(KC_O); } accented_letter(KC_GRV, KC_U, pressed); break;
-    case MNEI_MEME: if (pressed) { tap_code(KC_M); accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("me"); } break;
+    case MNE_MEME: if (pressed) { tap_code(KC_M); accented_letter(S(KC_6), KC_E, pressed); SEND_STRING("me"); } break;
     case LTA_LAETITIA: if (pressed) {
                          unmod(S(KC_L));
                          SEND_STRING("a");
@@ -9,7 +9,7 @@
                        } break;
     case LA_LA: if (pressed) { tap_code(KC_L); } accented_letter(KC_GRV, KC_A, pressed); break;
     case CA_CA: if (pressed) { accented_letter(KC_QUOT, KC_C, pressed); tap_code(KC_A); } break;
-    case PE_PEUT_ETRE: if (pressed) {
+    case PER_PEUT_ETRE: if (pressed) {
                           SEND_STRING("peut");
                           unmod(KC_MINUS);
                           accented_letter(S(KC_6), KC_E, pressed);
@@ -40,9 +40,9 @@
       break;
     case TR_TRES:
       if (pressed) { SEND_STRING("tr"); accented_letter(KC_GRV, KC_E, pressed); tap_code(KC_S); } break;
-    case ETA_ETAIT:
+    case EITA_ETAIT:
       if (pressed) { accented_letter(KC_QUOT, KC_E, pressed); SEND_STRING("tait"); } break;
-    case ETAN_ETAIENT:
+    case EITAN_ETAIENT:
       if (pressed) { accented_letter(KC_QUOT, KC_E, pressed); SEND_STRING("taient"); } break;
     case AJD_AJD:
       if (pressed) { SEND_STRING("aujourd"); unmod(KC_QUOT); SEND_STRING("hui"); } break;

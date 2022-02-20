@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = yes
 LTO_ENABLE = yes
 
 VPATH  +=  keyboards/gboards/

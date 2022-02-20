@@ -1,29 +1,19 @@
 // ---- Simple keycodes ---- {{{
 
 // Modtaps n stuff
-#define ESC_FN MT(MOD_HYPR, KC_ESC)
 #define ESC_GUI MT(MOD_LGUI, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
 #define OSM_SFT OSM(MOD_LSFT)
 
 // Home row mods
-#define SFT_A MT(MOD_LSFT, KC_A)
-#define SFT_O MT(MOD_RSFT, KC_O)
-#define CTL_R MT(MOD_LCTL, KC_R)
-#define CTL_I MT(MOD_RCTL, KC_I)
-#define ALT_S MT(MOD_LALT, KC_S)
-#define ALT_E MT(MOD_LALT, KC_E)
-#define CMMD_T MT(MOD_LGUI, KC_T)
-#define CMMD_N MT(MOD_RGUI, KC_N)
-
-// QWERTY Home Row Mods
-#define SFT_SC MT(MOD_RSFT, KC_SCLN)
-#define CTL_S MT(MOD_LGUI, KC_S)
-#define CTL_L MT(MOD_RGUI, KC_L)
-#define ALT_D MT(MOD_LALT, KC_D)
-#define ALT_K MT(MOD_LALT, KC_K)
-#define CMMD_F MT(MOD_LCTL, KC_F)
-#define CMMD_J MT(MOD_RCTL, KC_J)
+#define HRM_A MT(MOD_LSFT, KC_A)
+#define HRM_O MT(MOD_RSFT, KC_O)
+#define HRM_R MT(MOD_LGUI, KC_R)
+#define HRM_I MT(MOD_RGUI, KC_I)
+#define HRM_S MT(MOD_LALT, KC_S)
+#define HRM_E MT(MOD_LALT, KC_E)
+#define HRM_T MT(MOD_LCTL, KC_T)
+#define HRM_N MT(MOD_RCTL, KC_N)
 
 // Layer keys
 #define BASE  DF(_BASE)
@@ -41,18 +31,14 @@
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CMMD_N: return TAPPING_TERM + 100;
-        case CMMD_T: return TAPPING_TERM + 100;
-        case CTL_S: return TAPPING_TERM + 100;
-        case CTL_L: return TAPPING_TERM + 100;
-        case ALT_K: return TAPPING_TERM + 100;
-        case ALT_D: return TAPPING_TERM + 100;
-        case CTL_R: return TAPPING_TERM + 100;
-        case CTL_I: return TAPPING_TERM + 100;
-        case ALT_E: return TAPPING_TERM + 100;
-        case ALT_S: return TAPPING_TERM + 100;
-        case SFT_A: return 175;
-        case SFT_O: return 250;
+        case HRM_N: return TAPPING_TERM + 100;
+        case HRM_T: return TAPPING_TERM + 100;
+        case HRM_R: return TAPPING_TERM + 100;
+        case HRM_I: return TAPPING_TERM + 100;
+        case HRM_E: return TAPPING_TERM + 100;
+        case HRM_S: return TAPPING_TERM + 100;
+        case HRM_A: return 175;
+        case HRM_O: return 250;
         default: return TAPPING_TERM;
     }
 }
