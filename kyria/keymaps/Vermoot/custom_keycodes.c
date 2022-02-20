@@ -35,7 +35,8 @@
 
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    /* static uint16_t non_mod_input_timer = 0; */
+    static uint16_t non_mod_input_timer;
+    non_mod_input_timer = timer_read();
     switch (keycode) {
         case HRM_N:
         case HRM_T:
@@ -43,8 +44,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HRM_I:
         case HRM_E:
         case HRM_S:
-          /* return timer_elapsed(non_mod_input_timer) > 500 ? 50 : TAPPING_TERM + 100; */
-          return TAPPING_TERM;
+          return timer_elapsed(non_mod_input_timer) > 500 ? 50 : TAPPING_TERM + 100;
+          /* return TAPPING_TERM; */
         case HRM_A:
           return TAPPING_TERM - 25;
         case HRM_O:
@@ -128,12 +129,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pressed) {
           prev_layers = layer_state;
           layer_move(_UBERBASE);
-          set_mods(MOD_BIT(KC_LCTRL) |
-                   MOD_BIT(KC_LALT) |
-                   MOD_BIT(KC_LSHIFT) |
-                   MOD_BIT(KC_LGUI)); // Hyper
+          set_mods(MOD_BIT(KC_LGUI));
         } else {
-          unregister_mods(0x0F); // Hyper
+          unregister_mods(MOD_BIT(KC_LGUI));
           layer_state_set(prev_layers);
         }
       } else if (record->tap.count > 0) {
@@ -156,6 +154,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                           MOD_BIT(KC_LALT) |
                           MOD_BIT(KC_LSHIFT)); // Meh
           layer_state_set(prev_layers);
+        }
+      } else if (record->tap.count > 0) {
+        if (pressed) {
+          tap_code(KC_TAB);
         }
       }
       return false;
