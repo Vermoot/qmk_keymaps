@@ -4,7 +4,8 @@
 #define ESC_HYP MT(MOD_HYPR, KC_ESC)
 #define ESC_GUI MT(MOD_LGUI, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
-#define OSM_SFT OSM(MOD_LSFT)
+#define OSS_L OSM(MOD_LSFT)
+#define OSS_R OSM(MOD_RSFT)
 
 // Home row mods
 #define HRM_A MT(MOD_LSFT, KC_A)
@@ -17,21 +18,20 @@
 #define HRM_N MT(MOD_RCTL, KC_N)
 
 // Layer keys
-#define BASE  DF(_BASE)
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
-#define NAV   LT(_NAV, KC_NO)
-#define NUM   MO(_NUM)
-#define MEDIA LT(_MEDIA, KC_ENT)
-#define FUNCT MO(_FUNCT)
+#define BASE   DF(_BASE)
+#define LOWER  MO(_LOWER)
+#define NAV    MO(_NAV)
+#define NUM    MO(_NUM)
+#define MEDIA  LT(_MEDIA,  KC_ENT)
+#define FUNCT  MO(_FUNCT)
 #define SELECT LT(_SELECT, KC_SPC)
-#define STENO DF(_STENO)
-#define BASE_MAC DF(_BASE_MAC)
+#define STENO  DF(_STENO)
 
 // Misc
 #define KC_EURO S(A(KC_2))
 #define STENESC LT(0, KC_A) // hijacked and used later
 #define STENTAB LT(0, KC_B) // hijacked and used later
+#define R_THUM1 KC_NO
 
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -47,9 +47,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
           return timer_elapsed(non_mod_input_timer) > 500 ? 50 : TAPPING_TERM + 100;
           /* return TAPPING_TERM; */
         case HRM_A:
-          return TAPPING_TERM - 25;
+          return TAPPING_TERM*2;
         case HRM_O:
-          return TAPPING_TERM + 50;
+          return TAPPING_TERM*2;
         default:
           return TAPPING_TERM;
     }
@@ -109,20 +109,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case C_CED: return accented_letter(KC_QUOT, KC_C, pressed);
 
     // Utilities
-    case NAV:
-      if (record->tap.count == 0) {
-        if (pressed) {
-          prev_layers = layer_state;
-          layer_move(_NAV);
-        } else {
-          layer_state_set(prev_layers);
-        }
-      } else if (record->tap.count > 0) {
-        if (pressed) {
-          add_oneshot_mods(MOD_BIT(KC_LSHIFT));
-        }
-      }
-      return false;
+    /* case NAV: */
+      /* if (record->tap.count == 0) { */
+        /* if (pressed) { */
+          /* prev_layers = layer_state; */
+          /* layer_move(_NAV); */
+        /* } else { */
+          /* layer_state_set(prev_layers); */
+        /* } */
+      /* } else if (record->tap.count > 0) { */
+        /* if (pressed) { */
+          /* add_oneshot_mods(MOD_BIT(KC_LSHIFT)); */
+        /* } */
+      /* } */
+      /* return false; */
 
     case STENESC:
       if (record->tap.count == 0) {

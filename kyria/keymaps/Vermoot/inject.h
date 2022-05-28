@@ -54,11 +54,15 @@
     case QEL_QUELLE: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" elle"); } break;
     case QN_QUELQUUN: if (pressed) { SEND_STRING("quelqu"); unmod(KC_QUOT); SEND_STRING(" un"); } break;
     case QUN_QUUN: if (pressed) { SEND_STRING("qu"); unmod(KC_QUOT); SEND_STRING(" un"); } break;
-    case Q_AP_QU: if (pressed) { SEND_STRING("qu"); unmod (KC_QUOT); SEND_STRING(" "); } break;
+    case Q_AP_QU: if (pressed) { SEND_STRING("qu"); unmod(KC_QUOT); SEND_STRING(" "); } break;
+    case ES_ESTCEQUE: if (pressed) { SEND_STRING("est"); unmod(KC_MINUS); SEND_STRING("ce que"); } break;
+    case QES_QUESTCEQUE: if (pressed) { SEND_STRING("qu"); unmod(KC_QUOTE); SEND_STRING(" est"); unmod(KC_MINUS); SEND_STRING("ce que"); } break;
 
       // English
-    case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_SPC); tap_code(KC_M); } break;
-    case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
+    /*
+     * case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_SPC); tap_code(KC_M); } break;
+     * case DN_DONT: if (pressed) { SEND_STRING("don"); unmod(KC_QUOT); tap_code(KC_T); } break;
+     */
 
       // Misc
     case UYD_SMILE: if (pressed) { tap_code16(KC_COLN); tap_code16(S(KC_D)); } break;

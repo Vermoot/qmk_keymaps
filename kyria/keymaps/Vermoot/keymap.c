@@ -2,11 +2,9 @@
 
 enum layers {
     _BASE = 0,
-    _BASE_MAC,
     _STENO,
     _NAV,
     _LOWER,
-    _RAISE,
     _NUM,
     _MEDIA,
     _FUNCT,
@@ -27,7 +25,7 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HRM_A:
         case HRM_O:
-            return true;
+            return false;
         default:
             return false;
     }
@@ -47,10 +45,11 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case BOU_BEAUCOUP:
     case PER_PEUT_ETRE:
     case C_CEST:
-    case I_CAPS:
+    /* case I_CAPS: */
     case AO_OS_SHIFT:
     case CM_COMME:
     case PLOVER_RET:
+    case DEAD_UMLAUT:
       return COMBO_TERM + 20;
 
     // Long
@@ -65,7 +64,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case QD_QUAND:
     case DJ_DEJA:
     case C_A_CETAIT:
-    case A_SL_QUESTION:
+    /* case A_SL_QUESTION: */
     case QE_QUE:
     case QI_QUI:
     /* case QO_QUOI: */
@@ -79,8 +78,10 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // Long as fuck
     case AJD_AJD:
     case LTA_LAETITIA:
-    case LEFT_HYPER:
-    case RIGHT_HYPER:
+    case ES_ESTCEQUE:
+    case QES_QUESTCEQUE:
+    /* case LEFT_HYPER: */
+    /* case RIGHT_HYPER: */
       return COMBO_TERM + 120;
   }
   return COMBO_TERM;
@@ -94,13 +95,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
   ESC_GUI, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,                                              KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,\
   _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
-                             _______, LOWER,   NUM,     NAV,     _______,       _______, KC_SPC,  KC_BSPC, FUNCT,   SELECT)
-
-#define BASELAYERMAC LAYOUT(\
-  TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
-  ESC_HYP, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,                                              KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,\
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
-                             _______, _______, LOWER,   NAV,     NUM,           RAISE,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
+                             _______, LOWER,   NUM,     NAV,     OSS_L,         OSS_R,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
 // ---- END BASE LAYER MACRO ---- }}}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -120,11 +115,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = BASELAYER,
 
-[_BASE_MAC] = BASELAYERMAC,
+// ---- STENO ---- {{{
+[_STENO] = LAYOUT(
+  STENTAB, STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
+  STENESC, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+  _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, NUM,     _______,       _______, _______, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+                             _______, NUM,     STN_A,   STN_O,   MO(_UBERBASE), STN_N1,  STN_E,   STN_U,   _______, _______
+),
+// ---- END STENO ---- }}}
 
 // ---- NAV ---- {{{
 [_NAV] = LAYOUT(
-  _______, CG_TOGG, BASE_MAC, BASE,   _______, _______,                                           _______, KC_PGDN, KC_PGUP, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                                           _______, KC_PGDN, KC_PGUP, _______, _______, _______,
   _______, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, _______,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______,       _______, _______, KC_DEL,  _______, _______
@@ -139,15 +141,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 // ---- END LOWER ---- }}}
-
-// ---- RAISE ---- {{{
-[_RAISE] = LAYOUT(
-  _______, _______, _______, KC_EURO, _______, _______,                                           _______, _______, _______, KC_UNDS, KC_PLUS, _______,
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                           UD_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-  _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
-),
-// ---- END RAISE ---- }}}
 
 // ---- NUM ---- {{{
 [_NUM] = LAYOUT(
@@ -184,15 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 // ---- END SELECT ---- }}}
-
-// ---- STENO ---- {{{
-[_STENO] = LAYOUT(
-  STENTAB, STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,                                            STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  MEDIA,
-  STENESC, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                                           STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-  _______, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, NUM,     _______,       _______, _______, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-                             _______, NAV,     STN_A,   STN_O,   MO(_UBERBASE), RAISE,   STN_E,   STN_U,   _______, _______
-),
-// ---- END STENO ---- }}}
 
 [_UBERBASE] = BASELAYER
 

@@ -1,10 +1,7 @@
 // Functional keys
 COMB(NI_HRM_BSPC,           C(KC_BSPC),          HRM_N, HRM_I)
 COMB(AO_OS_SHIFT,           OSM(MOD_LSFT),       HRM_A, HRM_O)
-COMB(A_SL_QUESTION,         S(KC_SLSH),          HRM_A, KC_SLSH)
 COMB(PLOVER_ON,             DF(_STENO),          KC_X, KC_C, KC_COMM, KC_DOT)
-COMB(LEFT_HYPER,            KC_HYPR,             HRM_A, HRM_R, HRM_S, HRM_T)
-COMB(RIGHT_HYPER,           KC_HYPR,             HRM_O, HRM_I, HRM_E, HRM_N)
 
 COMB(LEFT_ARROW,            KC_LEFT,             KC_MINS, HRM_O)
 COMB(RIGHT_ARROW,           KC_RIGHT,            UD_APO, SELECT)
@@ -13,7 +10,7 @@ COMB(DOWN_ARROW,            KC_DOWN,             KC_MINS, SELECT)
 COMB(VOL_UP,                KC_VOLU,             MEDIA, KC_SCLN)
 COMB(VOL_DOWN,              KC_VOLD,             MEDIA, HRM_O)
 
-COMB(RS_SPC_HANDS_SWAP,     SH_MON,              RAISE, KC_SPC)
+COMB(RS_SPC_HANDS_SWAP,     SH_MON,              R_THUM1, KC_SPC)
 COMB(LW_NAV_HANDS_SWAP,     SH_MON,              LOWER, NAV)
 
 // Symbols
@@ -22,6 +19,7 @@ COMB(UYD_SMILE,             KC_NO,               KC_U, KC_Y, KC_D)
 COMB(PLOVER_QUESTION,       KC_QUES,             HRM_R, HRM_S, KC_U, KC_Y)
 COMB(PLOVER_EXCL,           KC_EXLM,             HRM_I, HRM_E, KC_W, KC_F)
 COMB(PLOVER_RET,            KC_ENT,              HRM_N, HRM_T)
+COMB(PLOVER_SH_RET,         S(KC_ENT),           HRM_A, HRM_O, HRM_N, HRM_T)
 COMB(HE_SLASH,              KC_SLSH,             KC_H, HRM_E)
 COMB(E_PERIOD_BKSL,         KC_BSLS,             HRM_E, KC_DOT)
 COMB(NH_PIPE,               KC_PIPE,             HRM_N, KC_H)
@@ -33,12 +31,10 @@ COMB(PLUS,                  KC_PLUS,             KC_H, KC_COMM)
 COMB(BACKTICK,              UD_GRV,              KC_C, HRM_T)
 COMB(TILDE,                 UD_TLD,              KC_C, HRM_R)
 SUBS(ARROW,                 "->",                KC_M, KC_L)
-SUBS(FAT_ARROW,             "=>",                HRM_N, KC_SCLN)
 COMB(WF_AT,                 KC_AT,               KC_W, KC_F)
 COMB(FP_POUND,              KC_HASH,             KC_F, KC_P)
 COMB(FT_AMP,                KC_AMPR,             KC_F, HRM_T)
 COMB(LU_ASTR,               KC_ASTR,             KC_L, KC_U)
-COMB(SECTION_SIGN,          A(KC_6),             HRM_R, KC_F)
 COMB(DOLLAR,                KC_DLR,              HRM_R, KC_D)
 COMB(PERCENT,               KC_PERC,             HRM_I, KC_H)
 COMB(CIRC,                  UD_CIRC,             HRM_S, KC_D)
@@ -75,10 +71,10 @@ COMB(ARS_A_CIRC,            A_CIRC,              HRM_A, HRM_R, HRM_S)
 COMB(AR_A_GRV,              A_GRV,               HRM_A, HRM_S)
 COMB(XC_C_CED,              C_CED,               KC_X, KC_C)
 COMB(CD_C_CED,              C_CED,               KC_C, KC_D)
+COMB(DEAD_UMLAUT,           S(KC_QUOT),          HRM_N, HRM_O)
+
 COMB(EU_E_ACUTE,            E_ACUTE,             HRM_E, KC_U)
 COMB(E_COMM_E_GRAVE,        E_GRV,               HRM_E, KC_COMM)
-COMB(DEAD_CIRC,             S(KC_QUOT),          HRM_N, HRM_O)
-
 COMB(SC_C_CED,              C_CED,               HRM_S, KC_C)
 
 // French Words
@@ -100,7 +96,7 @@ COMB(C_A_CETAIT,            KC_NO,               KC_C, HRM_A, UD_APO)
 SUBS(MT_MENT,               "ment",              KC_M, HRM_T)
 SUBS(PQ_POURQUOI,           "pourquoi",          KC_P, KC_Q)
 SUBS(CQ_CHAQUE,             "chaque",            KC_C, KC_Q)
-/* SUBS(PT_PEUT,               "peut",              KC_P, HRM_T) */
+SUBS(PT_PEUT,               "peut",              KC_P, HRM_T)
 SUBS(QE_QUE,                "que",               KC_Q, HRM_E)
 COMB(QEI_QUE,               KC_NO,               KC_Q, HRM_E, HRM_I)
 SUBS(QI_QUI,                "qui",               KC_Q, HRM_I)
@@ -117,27 +113,30 @@ COMB(Q_AP_QU,               KC_NO,               KC_Q, UD_APO)
 SUBS(GE_GUE,                "gue",               KC_G, HRM_E)
 /* SUBS(TS_TOUS,               "tous",              HRM_T, HRM_S) */
 SUBS(T_NAV_TOUT,            "tout",              HRM_T, NAV)
-SUBS(NS_NOUS,               "nous",              HRM_N, HRM_S)
+/* SUBS(NS_NOUS,               "nous",              HRM_N, HRM_S) */
 COMB(TR_TRES,               KC_NO,               HRM_T, HRM_R)
 SUBS(TRO_TROP,              "trop",              HRM_T, HRM_R, HRM_O)
-SUBS(PR_POUR,               "pour",              KC_P, HRM_R)
-SUBS(AV_AVEC,               "avec",              HRM_A, KC_V)
+/* SUBS(PR_POUR,               "pour",              KC_P, HRM_R) */
+/* SUBS(AV_AVEC,               "avec",              HRM_A, KC_V) */
 /* SUBS(VO_VOUS,               "vous",              HRM_O, KC_V) */
 SUBS(PL_PLUS,               "plus",              KC_P, KC_L)
-SUBS(MS_MAIS,               "mais",              KC_M, HRM_S)
-SUBS(J_NAV_JE,              "je",                KC_J, NAV)
+/* SUBS(MS_MAIS,               "mais",              KC_M, HRM_S) */
+/* SUBS(J_NAV_JE,              "je",                KC_J, NAV) */
 /* SUBS(SU_SUIS,               "suis",              HRM_S, KC_U) */
-SUBS(L_NAV_LES,             "les",               KC_L, NAV)
-SUBS(D_NAV_LES,             "des",               KC_D, NAV)
+/* SUBS(L_NAV_LES,             "les",               KC_L, NAV) */
+/* SUBS(D_NAV_LES,             "des",               KC_D, NAV) */
 COMB(EITA_ETAIT,            KC_NO,               HRM_E, HRM_I, HRM_T, HRM_A)
 COMB(EITAN_ETAIENT,         KC_NO,               HRM_E, HRM_I, HRM_T, HRM_A, HRM_N)
 COMB(AJD_AJD,               KC_NO,               HRM_A, KC_J, KC_D)
 SUBS(LR_LEUR,               "leur",              KC_L, HRM_R)
 SUBS(PAE_PARCE,             "parce que",         KC_P, HRM_A, HRM_E)
+SUBS(GA_GRAND,              "grand",             KC_G, HRM_A)
+COMB(ES_ESTCEQUE,          KC_NO,               HRM_E, HRM_S, KC_MINUS)
+COMB(QES_QUESTCEQUE,       KC_NO,               HRM_E, KC_Q, KC_MINUS)
 
 // English words
-COMB(I_CAPS,                S(KC_I),             HRM_A, HRM_I)
-COMB(IM_IM,                 KC_NO,               KC_M, HRM_I)
-COMB(DN_DONT,               KC_NO,               KC_D, HRM_N)
+/* COMB(I_CAPS,                S(KC_I),             HRM_A, HRM_I) */
+/* COMB(IM_IM,                 KC_NO,               KC_M, HRM_I) */
+/* COMB(DN_DONT,               KC_NO,               KC_D, HRM_N) */
 
 // vim:ft=c
