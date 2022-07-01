@@ -15,7 +15,8 @@ enum layers {
   _FUNCT,
   _SELECT,
   _STENO,
-  _GAMING
+  _GAMING,
+  _ELITE
 };
 
 #include "custom_functions.c"
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_ortho_4x12( \
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,
   ESC_GUI, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,    KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,
-  OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  OSM_SFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, KC_RSFT,
   KC_LCTL, KC_LALT, KC_LGUI, _______, NUM,     NAV,     KC_SPC,  KC_BSPC, FUNCT,   _______, CRN_L,   SELECT
 ),
 // -------------------- }}}
@@ -156,10 +157,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ---- SELECT ---- {{{
 [_SELECT] = LAYOUT_ortho_4x12(
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_STENO),
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_GAMING),
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_STENO),
+  _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DF(_GAMING),
+  _______,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  DF(_ELITE), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 // ---------------- }}}
 
@@ -180,6 +181,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   KC_LCTL, KC_LALT, KC_LGUI, NUM,     NAV,     LOWER,   RAISE,   KC_SPC,  KC_BSPC, FUNCT,   CRN_L,   DF(_BASE)
+),
+// ---------- }}}
+
+// ---- ELITE ---- {{{
+[_ELITE] = LAYOUT_ortho_4x12(
+  DF(_BASE), KC_INS,  _______, KC_HOME, _______, _______, _______, _______, _______, KC_F22, KC_F23, KC_F24,
+  _______,   KC_DEL,  KC_Q,    KC_END,  _______, _______, _______, _______, _______, KC_F13, KC_F14, KC_F15,
+  KC_BSPC,   KC_A,    KC_SPC,  KC_D,    _______, _______, _______, _______, _______, KC_F16, KC_F17, KC_F18,
+  _______,   _______, KC_S,    _______, _______, _______, _______, _______, _______, KC_F19, KC_F20, KC_F21
 ),
 // ---------- }}}
 };
