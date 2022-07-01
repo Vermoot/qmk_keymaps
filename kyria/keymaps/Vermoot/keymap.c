@@ -3,6 +3,8 @@
 enum layers {
     _BASE = 0,
     _STENO,
+    _GAMING,
+    _COLEMAKGAMING,
     _NAV,
     _LOWER,
     _NUM,
@@ -10,7 +12,6 @@ enum layers {
     _FUNCT,
     _SELECT,
     _UBERBASE,
-    _GAMING
 };
 
 #include "custom_functions.c"
@@ -150,11 +151,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---- GAMING ---- {{{
 [_GAMING] = LAYOUT(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ENT,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                              KC_H,    KC_J,    KC_K,    KC_L,    KC_M,    KC_SCLN,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______,       _______, _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LCTL, KC_LALT,       KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                              _______, NUM,     NAV,     KC_SPC,  MO(_UBERBASE), LOWER,   KC_SPC,  KC_BSPC, _______, DF(_BASE)
 ),
 // ---- END GAMING ---- }}}
+
+// ---- COLEMAK GAMING ---- {{{
+[_COLEMAKGAMING] = LAYOUT(
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_ENT,
+  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                              KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_LCTL, KC_LALT,       KC_RALT, KC_RCTL, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, KC_RSFT,
+                             _______, NUM,     NAV,     KC_SPC,  MO(_UBERBASE), LOWER,   KC_SPC,  KC_BSPC, _______, DF(_BASE)
+),
+// ---- END COLEMAK GAMING ---- }}}
 
 // ---- NAV ---- {{{
 [_NAV] = LAYOUT(
@@ -205,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SELECT] = LAYOUT(
   _______, DF(_GAMING),_______, _______, _______, _______,                                           _______, _______, _______, _______, _______, STENO,
   _______, _______,    _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
-  _______, _______,    _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______,    _______, DF(_COLEMAKGAMING), _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
                                 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 // ---- END SELECT ---- }}}
