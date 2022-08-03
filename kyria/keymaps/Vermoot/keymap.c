@@ -66,6 +66,10 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case DEAD_UMLAUT:
       return COMBO_TERM - 10;
 
+    // Slightly longer
+    case PLOVER_RET:
+      return COMBO_TERM + 10;
+
     // Longer
     case BOU_BEAUCOUP:
     case PER_PEUT_ETRE:
@@ -73,7 +77,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     /* case I_CAPS: */
     case AO_OS_SHIFT:
     case CM_COMME:
-    case PLOVER_RET:
       return COMBO_TERM + 20;
 
     // Long
@@ -107,6 +110,19 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     /* case LEFT_HYPER: */
     /* case RIGHT_HYPER: */
       return COMBO_TERM + 120;
+      
+    // Numpad
+    case NUM0:
+    case NUM1:
+    case NUM2:
+    case NUM3:
+    case NUM4:
+    case NUM5:
+    case NUM6:
+    case NUM7:
+    case NUM8:
+    case NUM9:
+      return COMBO_TERM - 10;
   }
   return COMBO_TERM;
 }
