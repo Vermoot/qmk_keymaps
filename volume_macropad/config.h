@@ -21,3 +21,4 @@
 
 #define ENCODERS_PAD_A { GP2 }
 #define ENCODERS_PAD_B { GP1 }
+#define ENCODER_DEFAULT_POS 0x3
