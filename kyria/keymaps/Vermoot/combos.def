@@ -15,7 +15,7 @@ COMB(LW_NAV_HANDS_SWAP,     SH_MON,              LOWER, NAV)
 
 // Symbols
 COMB(UY_COLON,              KC_COLN,             KC_U, KC_Y)
-COMB(UYD_SMILE,             KC_NO,               KC_U, KC_Y, KC_D)
+COMB(UYD_SMILE,             KC_NO,               KC_U, KC_Y, D_NUM)
 COMB(PLOVER_QUESTION,       KC_QUES,             HRM_R, HRM_S, KC_U, KC_Y)
 COMB(PLOVER_EXCL,           KC_EXLM,             HRM_I, HRM_E, KC_W, KC_F)
 COMB(PLOVER_RET,            KC_ENT,              HRM_N, HRM_T)
@@ -35,9 +35,10 @@ COMB(WF_AT,                 KC_AT,               KC_W, KC_F)
 COMB(FP_POUND,              KC_HASH,             KC_F, KC_P)
 COMB(FT_AMP,                KC_AMPR,             KC_F, HRM_T)
 COMB(LU_ASTR,               KC_ASTR,             KC_L, KC_U)
-COMB(DOLLAR,                KC_DLR,              HRM_R, KC_D)
+COMB(DOLLAR,                KC_DLR,              HRM_R, D_NUM)
 COMB(PERCENT,               KC_PERC,             HRM_I, KC_H)
-COMB(CIRC,                  UD_CIRC,             HRM_S, KC_D)
+COMB(CIRC,                  UD_CIRC,             HRM_S, D_NUM)
+COMB(EURO,                  KC_EURO,             HRM_R, HRM_S)
 
 COMB(OPEN_PAREN,            KC_LPRN,             KC_W, HRM_T)
 COMB(CLOSE_PAREN,           KC_RPRN,             KC_Y, HRM_N)
@@ -70,7 +71,7 @@ COMB(LUY_U_CIRC,            U_CIRC,              KC_L, KC_U, KC_Y)
 COMB(ARS_A_CIRC,            A_CIRC,              HRM_A, HRM_R, HRM_S)
 COMB(AR_A_GRV,              A_GRV,               HRM_A, HRM_S)
 COMB(XC_C_CED,              C_CED,               KC_X, KC_C)
-COMB(CD_C_CED,              C_CED,               KC_C, KC_D)
+COMB(CD_C_CED,              C_CED,               KC_C, D_NUM)
 COMB(DEAD_UMLAUT,           S(KC_QUOT),          HRM_N, HRM_O)
 
 COMB(EU_E_ACUTE,            E_ACUTE,             HRM_E, KC_U)
@@ -90,7 +91,7 @@ COMB(PER_PEUT_ETRE,         KC_NO,               KC_P, HRM_E, HRM_R)
 COMB(C_CEST,                KC_NO,               KC_C, UD_APO)
 SUBS(CM_COMME,              "comme",             KC_C, KC_M)
 COMB(ETR_ETRE,              KC_NO,               HRM_E, HRM_T, HRM_R)
-COMB(DJ_DEJA,               KC_NO,               KC_D, KC_J)
+COMB(DJ_DEJA,               KC_NO,               D_NUM, KC_J)
 SUBS(PA_PAS,                "pas",               KC_P, HRM_A)
 COMB(C_A_CETAIT,            KC_NO,               KC_C, HRM_A, UD_APO)
 SUBS(MT_MENT,               "ment",              KC_M, HRM_T)
@@ -102,7 +103,7 @@ COMB(QEI_QUE,               KC_NO,               KC_Q, HRM_E, HRM_I)
 SUBS(QI_QUI,                "qui",               KC_Q, HRM_I)
 /* SUBS(QO_QUOI,               "quoi",              KC_Q, HRM_O) */
 SUBS(QL_QUEL,               "quel",              KC_Q, KC_L)
-SUBS(QD_QUAND,              "quand",             KC_Q, KC_D)
+SUBS(QD_QUAND,              "quand",             KC_Q, D_NUM)
 COMB(QON_QUON,              KC_NO,               KC_Q, HRM_O, HRM_N)
 COMB(QIL_QUIL,              KC_NO,               KC_Q, HRM_I, KC_L)
 COMB(QEL_QUELLE,            KC_NO,               KC_Q, KC_L, HRM_E)
@@ -124,10 +125,10 @@ SUBS(PL_PLUS,               "plus",              KC_P, KC_L)
 /* SUBS(J_NAV_JE,              "je",                KC_J, NAV) */
 /* SUBS(SU_SUIS,               "suis",              HRM_S, KC_U) */
 /* SUBS(L_NAV_LES,             "les",               KC_L, NAV) */
-/* SUBS(D_NAV_LES,             "des",               KC_D, NAV) */
+/* SUBS(D_NAV_LES,             "des",               D_NUM, NAV) */
 COMB(EITA_ETAIT,            KC_NO,               HRM_E, HRM_I, HRM_T, HRM_A)
 COMB(EITAN_ETAIENT,         KC_NO,               HRM_E, HRM_I, HRM_T, HRM_A, HRM_N)
-COMB(AJD_AJD,               KC_NO,               HRM_A, KC_J, KC_D)
+COMB(AJD_AJD,               KC_NO,               HRM_A, KC_J, D_NUM)
 SUBS(LR_LEUR,               "leur",              KC_L, HRM_R)
 SUBS(PAE_PARCE,             "parce que",         KC_P, HRM_A, HRM_E)
 SUBS(GA_GRAND,              "grand",             KC_G, HRM_A)
@@ -137,6 +138,6 @@ COMB(QES_QUESTCEQUE,       KC_NO,               HRM_E, KC_Q, KC_MINUS)
 // English words
 /* COMB(I_CAPS,                S(KC_I),             HRM_A, HRM_I) */
 /* COMB(IM_IM,                 KC_NO,               KC_M, HRM_I) */
-/* COMB(DN_DONT,               KC_NO,               KC_D, HRM_N) */
+/* COMB(DN_DONT,               KC_NO,               D_NUM, HRM_N) */
 
 // vim:ft=c

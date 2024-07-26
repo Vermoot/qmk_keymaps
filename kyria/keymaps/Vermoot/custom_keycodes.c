@@ -20,15 +20,17 @@
 // Layer keys
 #define BASE   DF(_BASE)
 #define LOWER  MO(_LOWER)
-#define NAV    MO(_NAV)
+/* #define NAV    MO(_NAV) */
+#define NAV    LT(_NAV, KC_SPC)
 #define NUM    MO(_NUM)
+#define D_NUM  LT(_NUM, KC_D)
 #define MEDIA  LT(_MEDIA,  KC_ENT)
 #define FUNCT  MO(_FUNCT)
 #define SELECT LT(_SELECT, KC_SPC)
 #define STENO  DF(_STENO)
 
 // Misc
-#define KC_EURO S(A(KC_2))
+#define KC_EURO ALGR(KC_5)
 #define STENESC LT(0, KC_A) // hijacked and used later
 #define STENTAB LT(0, KC_B) // hijacked and used later
 #define R_THUM1 KC_NO
@@ -146,13 +148,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (pressed) {
           prev_layers = layer_state;
           layer_move(_UBERBASE);
-          set_mods(MOD_BIT(KC_LCTRL) |
+          set_mods(MOD_BIT(KC_LCTL) |
                    MOD_BIT(KC_LALT) |
-                   MOD_BIT(KC_LSHIFT)); // Meh
+                   MOD_BIT(KC_LSFT)); // Meh
         } else {
-          unregister_mods(MOD_BIT(KC_LCTRL) |
+          unregister_mods(MOD_BIT(KC_LCTL) |
                           MOD_BIT(KC_LALT) |
-                          MOD_BIT(KC_LSHIFT)); // Meh
+                          MOD_BIT(KC_LSFT)); // Meh
           layer_state_set(prev_layers);
         }
       } else if (record->tap.count > 0) {

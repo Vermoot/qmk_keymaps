@@ -134,7 +134,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 #define BASELAYER LAYOUT(\
   TAB_MEH, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, MEDIA,\
   ESC_GUI, HRM_A,   HRM_R,   HRM_S,   HRM_T,   KC_G,                                              KC_M,    HRM_N,   HRM_E,   HRM_I,   HRM_O,   UD_APO,\
-  _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
+  _______, KC_Z,    KC_X,    KC_C,    D_NUM,   KC_V,    _______, _______,       _______, _______, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_MINS, SELECT,\
                              _______, LOWER,   NUM,     NAV,     OSS_L,         OSS_R,   KC_SPC,  KC_BSPC, FUNCT,   SELECT)
 // ---- END BASE LAYER MACRO ---- }}}
 
@@ -186,8 +186,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                                           _______, KC_PGDN, KC_PGUP, _______, _______, _______,
   _______, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, _______,                                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______,       _______, _______, KC_DEL,  _______, _______
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______,       _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+                             _______, _______, _______, _______, _______,       KC_DEL,  _______, _______, _______, _______
 ),
 // ---- END NAV ---- }}}
 
@@ -205,14 +205,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,                                           KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, KC_NUM,
   _______, KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, _______,                                           KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_QUOT,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, KC_PEQL, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
-                             _______, _______, _______, _______, _______,       KC_SPC,  KC_P0,   KC_BSPC, _______, KC_PDOT
+                             _______, _______, _______, _______, _______,       _______, KC_P0,   KC_BSPC, _______, KC_PDOT
 ),
 // ---- END NUM ---- }}}
 
 // ---- MEDIA ---- {{{
 [_MEDIA] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, KC_BRIU, KC_VOLU, _______,
-  _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, KC_BRID, KC_VOLD, KC_F13,
+  _______, _______, _______, _______, _______, _______,                                           _______, _______, KC_F15,  KC_BRIU, KC_VOLU, _______,
+  _______, _______, _______, _______, _______, _______,                                           _______, _______, KC_F16,  KC_BRID, KC_VOLD, KC_F13,
   _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, KC_MUTE, KC_F14,
                              _______, _______, _______, _______, _______,       _______, _______, KC_MRWD, KC_MPLY, KC_MFFD
 ),
