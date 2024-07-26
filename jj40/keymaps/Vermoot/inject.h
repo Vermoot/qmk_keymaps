@@ -34,6 +34,7 @@
       if (pressed) {
         tap_code(KC_C);
         unmod(KC_QUOT);
+        tap_code(KC_SPACE);
         accented_letter(KC_QUOT, KC_E, pressed);
         SEND_STRING("tait");
       }
@@ -46,6 +47,9 @@
       if (pressed) { accented_letter(KC_QUOT, KC_E, pressed); SEND_STRING("taient"); } break;
     case AJD_AJD:
       if (pressed) { SEND_STRING("aujourd"); unmod(KC_QUOT); SEND_STRING("hui"); } break;
+
+      // Misc
+    case UYD_SMILE: if (pressed) { tap_code16(KC_COLN); tap_code16(S(KC_D)); } break;
 
       // English
     case IM_IM: if (pressed) { unmod(S(KC_I)); unmod(KC_QUOT); tap_code(KC_M); } break;

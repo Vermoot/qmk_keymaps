@@ -3,7 +3,8 @@
 // Modtaps n stuff
 #define ESC_GUI MT(MOD_LGUI, KC_ESC)
 #define TAB_MEH MEH_T(KC_TAB)
-#define OSM_SFT OSM(MOD_LSFT)
+#define OSS_L OSM(MOD_LSFT)
+#define OSS_R OSM(MOD_RSFT)
 
 // Home row mods
 #define HRM_A MT(MOD_LSFT, KC_A)
@@ -19,14 +20,14 @@
 #define BASE  DF(_BASE)
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
-#define NAV   MO(_NAV)
+#define NAV   LT(_NAV, KC_SPC)
 #define NUM   MO(_NUM)
 #define MEDIA LT(_MEDIA, KC_ENT)
 #define FUNCT MO(_FUNCT)
 #define SELECT LT(_SELECT, KC_SPC)
 
 // Misc
-#define KC_EURO S(A(KC_2))
+#define KC_EURO ALGR(KC_5)
 
 // Tapping terms {{{
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
