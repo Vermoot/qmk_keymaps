@@ -24,7 +24,7 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_bigknob(
         KC_F13,                   DSC_MUT,
-        KC_F14,    KC_A,          KC_F16,
+        KC_F14,    KC_LSFT,       KC_F16,
         KC_MUTE,                  KC_F17,
         KC_MRWD,   KC_MPLY,       KC_MFFD
     )
