@@ -12,6 +12,7 @@
 #define COMBO_VARIABLE_LEN
 #define COMBO_TERM 20
 #define COMBO_TERM_PER_COMBO
+#define COMBO_SHOULD_TRIGGER
 
 // One shot mods
 // #define ONESHOT_TAP_TOGGLE 2

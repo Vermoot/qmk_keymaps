@@ -100,6 +100,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case QEL_QUELLE:
     case QN_QUELQUUN:
     case QUN_QUUN:
+    case UYD_SMILE:
       return COMBO_TERM + 70;
 
     // Long as fuck
@@ -109,6 +110,8 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     case QES_QUESTCEQUE:
     /* case LEFT_HYPER: */
     /* case RIGHT_HYPER: */
+    case PLOVER_QUESTION:
+    case PLOVER_EXCL:
       return COMBO_TERM + 120;
       
     // Numpad
@@ -127,6 +130,18 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   return COMBO_TERM;
 }
 // ---- END Combo terms ---- }}}
+
+// Disable combos on gaming layers
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+  switch (get_highest_layer(layer_state|default_layer_state)) {
+    case _GAMING:
+    case _COLEMAKGAMING:
+      return false;
+    default:
+      return true;
+  }
+  return true;
+}
 
 // --------------- LAYERS -------------------- {{{
 
